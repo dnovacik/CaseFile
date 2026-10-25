@@ -13,7 +13,7 @@ At 20:40, gallery owner Adrian Vale leaves his engraved silver wristwatch in an 
 - **Thomas Bell**, security officer; emergency key in monitored sealed cabinet.
 
 ## Evidence
-**E01 Adrian's statement, interviewed 21:32:** “I placed the watch in the top drawer of my desk at 20:40. I closed the drawer but didn't lock it. Then I went downstairs to greet our guests. When I returned at 21:20, the office door was locked, but the watch was gone.” He didn't lend or remove the watch after 20:40; drawer was undamaged.
+**E01 Adrian's statement, interviewed 21:32:** “I placed the watch in the top drawer of my desk at 20:40. I closed the drawer but didn't lock it. Then I went downstairs to greet our guests. When I returned at 21:20, the office door was locked, but the watch was gone.” He didn't lend or remove the watch after 20:40; drawer was undamaged. The office is on the second floor and its windows are fixed panes that do not open.
 
 **E02 Marcus's statement, 21:41:** “I was in the print room the whole time, from about 20:45 until 21:15. The exhibition catalogues needed finishing. My access badge stayed clipped to my jacket. I didn't go anywhere near Adrian's office.” M-04 is assigned to Marcus.
 
@@ -25,9 +25,9 @@ At 20:40, gallery owner Adrian Vale leaves his engraved silver wristwatch in an 
 
 **E06 Print server report:** 20:46 job submitted from Marcus's workstation; 20:47 print starts; 20:56 finishes; 21:12 pages collected (collector unknown). Printer runs unattended; proves submission, not continuous presence.
 
-**E07 Guest corridor photograph:** timestamp 20:51; dark-suited person leaving office corridor, face obscured. Does **not** identify Marcus. Production asset needs clue-equivalent alt text.
+**E07 Guest corridor photograph:** timestamp 20:51; taken on a guest's phone after they wandered through an unmarked staff door looking for the cloakroom. Shows the staff back corridor leading from the private office: a dark-suited person walking away, backlit, face obscured. Several men at the exhibition wear dark suits (including Adrian and Marcus). Does **not** identify Marcus. Production asset needs clue-equivalent alt text.
 
-**E08 Security desk:** emergency key seal K-17 intact at 20:30 and 21:15; cabinet sensor reported no opening. Thomas radio responses 20:49, 21:02. Does not prove continuous location, but weighs against emergency-key entry.
+**E08 Security desk:** the emergency key cabinet holds eight keys (the office key is on hook 2) behind one tamper seal; seal 007342 intact at 20:30 and 21:15; cabinet sensor reported no opening. CCTV covers the public galleries and main stairwell only; the staff wing (back corridor, print room, storage room, private office) has no cameras. Thomas radio responses 20:49, 21:02. Does not prove continuous location, but weighs against emergency-key entry.
 
 **E09 Watch recovery (unlocked later):** 22:05 consented inspection of Marcus's belongings finds Adrian's engraved silver watch inside zipped compartment of Marcus's jacket; engraving matches owner documents. Marcus confirms jacket stayed with him; nobody else handled it. Not immediately visible; unlocked by justified investigative action A01.
 
@@ -70,6 +70,8 @@ Three inputs: suspect, entry method, select supporting evidence. Gate submission
 - [ ] Verify all three relationship types are semantically defensible.
 - [ ] Validate A01 unlock does not magically produce unsupported evidence.
 - [ ] Remove or clarify weak identity inference before release.
+- [ ] Rule out alternative entry routes in player-visible evidence (fixed windows, sealed emergency key, no CCTV in the staff wing).
+- [ ] Check every art asset against the case facts (see [ART-PROMPTS.md](ART-PROMPTS.md)).
 - [ ] Run validator and full graph simulation.
 - [ ] Cold-playtest with players unfamiliar with the intended solution.
 - [ ] Confirm expected 8–10-minute experience and accessible photo clues.
