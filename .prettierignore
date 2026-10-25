@@ -6,3 +6,4 @@ package-lock.json
 apps/mobile/ios/
 apps/mobile/android/
 *.md
+expo-env.d.ts
