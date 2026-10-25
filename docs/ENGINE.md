@@ -60,11 +60,20 @@ type CaseProgress = {
 - `inspectEvidence(id)`: succeeds only if evidence is currently available; marks inspected.
 - `linkFacts(a, b, relationType)`: order-insensitive fact pair; both facts must be inspected and visible; validates the authored relationship type without hinting the correct one.
 - `performAction(id)`: checks deductions/relationships and reveals authored evidence IDs.
-- `useHint(stage)`: only returns authored hint content; final stage may discover a valid link.
+- `requestHint(stage)`: only returns authored hint content; final stage may discover a valid link. (Named `requestHint` rather than `useHint` so it isn't mistaken for a React hook.)
 - `submitReport(answers, selectedProofIds)`: validates prerequisites, answers and at least one authored accepted proof set.
 - `resetCase()`: deliberately clears a case's state.
 
-Return structured result codes (`valid`, `not_established`, `not_available`, `already_discovered`, `requires_more_investigation`); keep hidden solution metadata out of player-facing result payloads.
+Return structured result codes (`valid`, `not_established`, `not_available`, `already_discovered`, `requires_more_investigation`, `invalid_input`); keep hidden solution metadata out of player-facing result payloads.
+
+## Implemented rules (`packages/engine`)
+- **Schema:** Zod schemas in `schema.ts` are the single source of truth; TypeScript types are inferred from them. Unknown fields are rejected.
+- **IDs** are unique across the whole case (evidence, facts, relationships, deductions, actions, conclusions), so proof sets can mix evidence and deduction IDs unambiguously.
+- **Links:** a wrong type, an unrelated pair and a pair whose `requires` are unmet all return `not_established`, so feedback never reveals which part was wrong. Linking a fact to itself is `invalid_input`.
+- **Hints:** `hints` is an optional ordered list of `{ relationshipId, nudgeKey }`. The target is the first hinted relationship that is undiscovered, has its prerequisites met and whose facts are on available evidence. Stage 1 returns the nudge, stage 2 the two fact IDs, stage 3 establishes the relationship (inspecting its evidence if needed). Every hint call increments `hintsUsed`.
+- **Final report:** answers are one choice per conclusion plus a shared proof selection. It is accepted when all answers are correct, each conclusion has an accepted proof set fully contained in the selection, and every selected ID belongs to some accepted proof set, so selecting everything cannot pass. Missing mandatory deductions return `requires_more_investigation` without counting as a wrong submission; a wrong report increments `incorrectSubmissions` and keeps all progress.
+- **Saves:** `loadProgress` rejects malformed saves, saves for another case, saves for another `contentVersion` (`content_version_mismatch`: migrate, never reset) and unknown IDs, then re-derives deductions.
+- **Validation:** `checkCase(json, { strings, assetIds })` runs schema parsing, reference/ownership checks, duplicate fact pairs, dependency cycles (including through action-revealed evidence), unreachable hidden evidence, proof references, optional localized-string and asset checks, then the full-path solver (`solveCase`). Unreachable mandatory deductions and unprovable conclusions are errors; unreachable optional deductions are warnings.
 
 ## Evaluation
 A valid relationship unlocks its ID. Re-evaluate deduction rules in dependency/topological order until fixed point, requiring all facts/relationships/deductions/actions in a rule. Recompute follow-up availability. A completed action reveals evidence but does not automatically mark it inspected. Deterministic progression; state updates atomically persisted.
