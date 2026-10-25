@@ -20,7 +20,6 @@ export function caseText(content: CaseContent) {
  * library as "coming soon" with their card art.
  */
 export const upcomingCases = [
-  { number: 2, title: 'Last Delivery', assetId: 'case-02-card' },
   { number: 3, title: 'The Empty Room', assetId: 'case-03-card' },
   { number: 4, title: '21:37', assetId: 'case-04-card' },
   { number: 5, title: 'The Forged Signature', assetId: 'case-05-card' },
