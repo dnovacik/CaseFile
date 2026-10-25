@@ -11,5 +11,9 @@
   },
   "dependencies": {
     "@casefile/engine": "*"
+  },
+  "exports": {
+    ".": "./index.ts",
+    "./art": "./art.ts"
   }
 }
