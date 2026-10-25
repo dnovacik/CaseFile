@@ -1,0 +1,8 @@
+node_modules/
+coverage/
+.expo/
+dist/
+package-lock.json
+apps/mobile/ios/
+apps/mobile/android/
+*.md
