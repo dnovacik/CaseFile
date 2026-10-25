@@ -62,6 +62,13 @@ export const ui = {
     compare: (count: number) =>
       count === 2 ? 'Compare facts' : `Select facts to compare (${count}/2)`,
     clear: 'Clear selection',
+    trayEmpty: 'Open any evidence and pick a fact to start a comparison.',
+    trayOne: 'Pick a second fact — from this or any other evidence.',
+    chooseFromAll: 'Choose from all facts',
+    selectedInCard: (n: number) => (n === 1 ? '1 fact selected' : `${n} facts selected`),
+    tipTitle: 'How to investigate',
+    tip: 'Every statement and record contains facts. Pick one fact, then pick a second one from any evidence — the same person, a different witness or a log — and compare them. Contradictions between people are often where cases break open.',
+    tipDismiss: 'Got it',
   },
   compare: {
     title: 'Compare facts',
@@ -95,7 +102,11 @@ export const ui = {
       requires_more_investigationBody: 'The evidence doesn\x27t establish that relationship yet.',
     },
     newDeductions: 'New deduction',
-    missing: 'Select two facts first.',
+    missing: 'Select a fact first.',
+    chooseB: 'Choose Fact B',
+    chooseBHint:
+      'Any fact from evidence you have inspected. Comparing different sources is often the key.',
+    change: 'Change',
   },
   board: {
     title: 'Deduction board',

@@ -1,14 +1,21 @@
 import Ionicons from '@expo/vector-icons/Ionicons';
-import { RELATION_TYPES, type RelationType, type ResultCode } from '@casefile/engine';
+import {
+  RELATION_TYPES,
+  type Fact,
+  type Id,
+  type RelationType,
+  type ResultCode,
+} from '@casefile/engine';
 import { router, useLocalSearchParams } from 'expo-router';
 import { useState } from 'react';
 import { AccessibilityInfo, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { Button } from '@/components/Button';
+import { FactChip } from '@/components/FactChip';
 import { caseText, getCase, type CaseContent } from '@/content/cases';
 import { ui } from '@/i18n/en';
-import { dispatch, useProgressStore, useSelectedFacts } from '@/state/progress';
+import { dispatch, useCaseProgress, useProgressStore, useSelectedFacts } from '@/state/progress';
 import { colors, fonts, minTouch, radii, spacing, type } from '@/theme';
 
 const relationIcon: Record<RelationType, 'link-outline' | 'shuffle-outline' | 'time-outline'> = {
@@ -28,19 +35,26 @@ export default function CompareSheet() {
 
 function Compare({ content }: { content: CaseContent }) {
   const { definition } = content;
-  const t = caseText(content);
   const selected = useSelectedFacts(definition.id);
   const clearSelection = useProgressStore((state) => state.clearSelection);
+  const toggleFact = useProgressStore((state) => state.toggleFact);
   // No relationship is preselected; the player has to choose.
   const [relation, setRelation] = useState<RelationType | null>(null);
   const [outcome, setOutcome] = useState<Outcome | null>(null);
-  // Keep showing the compared facts after a valid link clears the selection.
-  const [pair] = useState(selected);
+  // Once analyzed, keep showing the compared pair even though a valid link clears the selection.
+  const [analyzedPair, setAnalyzedPair] = useState<Id[] | null>(null);
+  const pair = analyzedPair ?? selected;
 
   const facts = pair.map((id) => definition.facts.find((f) => f.id === id)).filter((f) => !!f);
 
+  const change = (factId: Id) => {
+    toggleFact(definition.id, factId);
+    setRelation(null);
+  };
+
   const analyze = () => {
     if (!relation || facts.length !== 2) return;
+    setAnalyzedPair([facts[0]!.id, facts[1]!.id]);
     const result = dispatch(definition, {
       type: 'linkFacts',
       factIds: [facts[0]!.id, facts[1]!.id],
@@ -72,28 +86,31 @@ function Compare({ content }: { content: CaseContent }) {
           </Pressable>
         </View>
 
-        {facts.length !== 2 ? (
-          <Text style={type.body}>{ui.compare.missing}</Text>
-        ) : (
+        {facts.length === 0 ? <Text style={type.body}>{ui.compare.missing}</Text> : null}
+
+        {facts.length === 1 ? (
+          <>
+            <FactCard fact={facts[0]!} label={ui.compare.factA} content={content} />
+            <FactPicker
+              content={content}
+              exclude={facts[0]!.id}
+              onPick={(id) => toggleFact(definition.id, id)}
+            />
+          </>
+        ) : null}
+
+        {facts.length === 2 ? (
           <>
             <Text style={[type.body, styles.muted]}>{ui.compare.intro}</Text>
-            {facts.map((fact, index) => {
-              const source = definition.evidence.find((e) => e.id === fact.evidenceId);
-              return (
-                <View key={fact.id} style={styles.factCard}>
-                  <View style={styles.factHeader}>
-                    <Text style={styles.factLabel}>
-                      {index === 0 ? ui.compare.factA : ui.compare.factB}
-                    </Text>
-                    <View style={styles.idTag}>
-                      <Text style={styles.idText}>{fact.evidenceId}</Text>
-                    </View>
-                  </View>
-                  <Text style={type.body}>{t(fact.textKey)}</Text>
-                  {source ? <Text style={type.meta}>{t(source.titleKey)}</Text> : null}
-                </View>
-              );
-            })}
+            {facts.map((fact, index) => (
+              <FactCard
+                key={fact.id}
+                fact={fact}
+                label={index === 0 ? ui.compare.factA : ui.compare.factB}
+                content={content}
+                onChange={outcome ? undefined : () => change(fact.id)}
+              />
+            ))}
 
             {outcome ? (
               <Result outcome={outcome} content={content} />
@@ -130,7 +147,7 @@ function Compare({ content }: { content: CaseContent }) {
               </>
             )}
           </>
-        )}
+        ) : null}
       </ScrollView>
 
       <View style={styles.footer}>
@@ -153,6 +170,90 @@ function Compare({ content }: { content: CaseContent }) {
         )}
       </View>
     </SafeAreaView>
+  );
+}
+
+function FactCard({
+  fact,
+  label,
+  content,
+  onChange,
+}: {
+  fact: Fact;
+  label: string;
+  content: CaseContent;
+  onChange?: () => void;
+}) {
+  const t = caseText(content);
+  const source = content.definition.evidence.find((e) => e.id === fact.evidenceId);
+  return (
+    <View style={styles.factCard}>
+      <View style={styles.factHeader}>
+        <Text style={styles.factLabel}>{label}</Text>
+        <View style={styles.idTag}>
+          <Text style={styles.idText}>{fact.evidenceId}</Text>
+        </View>
+        {onChange ? (
+          <Pressable
+            onPress={onChange}
+            accessibilityRole="button"
+            accessibilityLabel={`${ui.compare.change} ${label}`}
+            hitSlop={8}
+            style={styles.change}
+          >
+            <Text style={[type.label, { color: colors.brass }]}>{ui.compare.change}</Text>
+          </Pressable>
+        ) : null}
+      </View>
+      <Text style={type.body}>{t(fact.textKey)}</Text>
+      {source ? <Text style={type.meta}>{t(source.titleKey)}</Text> : null}
+    </View>
+  );
+}
+
+/** Every fact from inspected evidence, grouped by source, so Fact B can come from anywhere. */
+function FactPicker({
+  content,
+  exclude,
+  onPick,
+}: {
+  content: CaseContent;
+  exclude: Id;
+  onPick: (factId: Id) => void;
+}) {
+  const t = caseText(content);
+  const { definition } = content;
+  const progress = useCaseProgress(definition);
+  const sources = definition.evidence.filter((e) => progress.inspectedEvidenceIds.includes(e.id));
+  return (
+    <View style={styles.picker}>
+      <Text style={type.heading}>{ui.compare.chooseB}</Text>
+      <Text style={type.meta}>{ui.compare.chooseBHint}</Text>
+      {sources.map((evidence) => {
+        const facts = definition.facts.filter(
+          (f) => f.evidenceId === evidence.id && f.id !== exclude,
+        );
+        if (facts.length === 0) return null;
+        return (
+          <View key={evidence.id} style={styles.group}>
+            <View style={styles.groupHeader}>
+              <View style={styles.idTag}>
+                <Text style={styles.idText}>{evidence.id}</Text>
+              </View>
+              <Text style={[type.label, styles.groupTitle]}>{t(evidence.titleKey)}</Text>
+            </View>
+            {facts.map((fact) => (
+              <FactChip
+                key={fact.id}
+                text={t(fact.textKey)}
+                selected={false}
+                onPress={() => onPick(fact.id)}
+              />
+            ))}
+          </View>
+        );
+      })}
+    </View>
   );
 }
 
@@ -237,6 +338,27 @@ const styles = StyleSheet.create({
     fontFamily: fonts.sansSemiBold,
     fontSize: 14,
     color: colors.ivory,
+  },
+  change: {
+    marginLeft: 'auto',
+    minHeight: minTouch,
+    justifyContent: 'center',
+  },
+  picker: {
+    gap: spacing.md,
+  },
+  group: {
+    gap: spacing.sm,
+  },
+  groupHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: spacing.sm,
+    marginTop: spacing.sm,
+  },
+  groupTitle: {
+    flex: 1,
+    fontFamily: fonts.sansSemiBold,
   },
   options: {
     gap: spacing.md,
