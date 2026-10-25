@@ -1,7 +1,8 @@
 import { getAvailableEvidenceIds } from '@casefile/engine';
 import { router, useLocalSearchParams } from 'expo-router';
 import { useState } from 'react';
-import { FlatList, StyleSheet, Text, View } from 'react-native';
+import Ionicons from '@expo/vector-icons/Ionicons';
+import { FlatList, Pressable, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { BackHeader } from '@/components/BackHeader';
@@ -40,12 +41,24 @@ function Workspace({ caseId }: { caseId: string }) {
           backLabel={ui.evidence.back}
           fallbackHref={`/case/${caseId}`}
           right={
-            <Text style={type.meta}>
-              {ui.evidence.discoveries(
+            <Pressable
+              onPress={() => router.push(`/case/${caseId}/board`)}
+              accessibilityRole="button"
+              accessibilityLabel={`${ui.board.title}, ${ui.evidence.discoveries(
                 progress.discoveredRelationshipIds.length,
                 progress.unlockedDeductionIds.length,
-              )}
-            </Text>
+              )}`}
+              style={styles.boardButton}
+            >
+              <Ionicons name="git-network-outline" size={18} color={colors.brass} />
+              <Text style={[type.label, { color: colors.brass }]}>{ui.board.open}</Text>
+              <Text style={type.meta}>
+                {ui.evidence.discoveries(
+                  progress.discoveredRelationshipIds.length,
+                  progress.unlockedDeductionIds.length,
+                )}
+              </Text>
+            </Pressable>
           }
         />
         <Text style={type.title} accessibilityRole="header">
@@ -89,6 +102,16 @@ const styles = StyleSheet.create({
     paddingHorizontal: spacing.lg,
     paddingTop: spacing.sm,
     gap: spacing.xs,
+  },
+  boardButton: {
+    minHeight: 44,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: spacing.sm,
+    paddingHorizontal: spacing.md,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: colors.brassDim,
   },
   subtitle: {
     color: colors.ivoryMuted,
