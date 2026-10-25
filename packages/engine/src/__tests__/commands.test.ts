@@ -269,6 +269,14 @@ describe('submitReport', () => {
     expect(result.code).toBe('not_established');
   });
 
+  it('accepts relevant supporting proof alongside an accepted set', () => {
+    const def = makeCase();
+    def.conclusions[0]!.supportingProofIds = ['E4', 'D2'];
+    const ready = fullyInvestigated(def);
+    expect(submitReport(def, ready, answers, ['E3', 'E5', 'E4', 'D2']).result.code).toBe('valid');
+    expect(submitReport(def, ready, answers, ['E4', 'D2']).result.code).toBe('not_established');
+  });
+
   it('rejects proof the player has not obtained', () => {
     const def = makeCase();
     const ready = play(
