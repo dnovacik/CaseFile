@@ -23,6 +23,7 @@ export const caseArt = {
   'case-02-cast-nico': require('./assets/cases/case-02-cast-nico.webp'),
   'case-02-cast-owen': require('./assets/cases/case-02-cast-owen.webp'),
   'case-02-e05': require('./assets/cases/case-02-e05.webp'),
+  'case-02-e06': require('./assets/cases/case-02-e06.webp'),
   'case-02-e07': require('./assets/cases/case-02-e07.webp'),
   'case-02-e08': require('./assets/cases/case-02-e08.webp'),
   'case-02-e09': require('./assets/cases/case-02-e09.webp'),
