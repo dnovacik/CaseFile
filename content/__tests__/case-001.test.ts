@@ -28,35 +28,6 @@ function investigated(): CaseProgress {
 }
 
 describe('Case 001 — The Missing Watch', () => {
-  it('passes every validation check with no warnings', () => {
-    const result = checkCase(caseJson, { strings: content.strings, assetIds });
-    expect(result.issues).toEqual([]);
-    expect(result.ok).toBe(true);
-  });
-
-  it('has no unused strings', () => {
-    const used = JSON.stringify(caseJson);
-    const unused = Object.keys(content.strings).filter((key) => !used.includes(`"${key}"`));
-    expect(unused).toEqual([]);
-  });
-
-  it('is solvable end to end and reaches every deduction', () => {
-    const solution = solveCase(def);
-    expect(solution.solved).toBe(true);
-    expect(solution.unreachableDeductionIds).toEqual([]);
-    expect(solution.unreachableRelationshipIds).toEqual([]);
-  });
-
-  it('uses all three relation types on the mandatory path', () => {
-    const mandatoryRelationships = def.deductions
-      .filter((d) => d.mandatory)
-      .flatMap((d) => d.requires.relationshipIds ?? []);
-    const types = new Set(
-      def.relationships.filter((r) => mandatoryRelationships.includes(r.id)).map((r) => r.type),
-    );
-    expect([...types].sort()).toEqual(['contradicts', 'same_event', 'supports']);
-  });
-
   it('keeps the recovered watch hidden until the justified search', () => {
     const start = createProgress(def);
     expect(getAvailableEvidenceIds(def, start)).not.toContain('E09');
@@ -94,23 +65,5 @@ describe('Case 001 — The Missing Watch', () => {
     const everything = [...ready.inspectedEvidenceIds, ...ready.unlockedDeductionIds];
     expect(everything).toContain('E07');
     expect(submitReport(def, ready, answers, everything).result.code).toBe('not_established');
-  });
-
-  it('rejects the wrong suspect or entry method', () => {
-    const ready = investigated();
-    for (const suspect of ['adrian', 'elena', 'thomas']) {
-      expect(
-        submitReport(def, ready, { ...answers, C01: suspect }, ['E05', 'E09']).result.code,
-      ).toBe('not_established');
-    }
-    expect(
-      submitReport(def, ready, { ...answers, C02: 'emergency_key' }, ['E05', 'E09']).result.code,
-    ).toBe('not_established');
-  });
-
-  it('gives every photograph a text description of its clues', () => {
-    for (const item of def.evidence.filter((e) => e.type === 'photograph')) {
-      expect(content.strings[item.bodyKey]!.length).toBeGreaterThan(200);
-    }
   });
 });

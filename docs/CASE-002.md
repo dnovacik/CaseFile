@@ -1,7 +1,7 @@
 # Case 002 — Last Delivery (designer spoilers)
 **Setting:** Riverside Apartments, lobby parcel room; 22 October 2026.
 **Level:** Rookie. **Target length:** 8–10 minutes.
-**Current status:** design specification only; not implemented as JSON, validated, solver-tested or cold-playtested. All quoted fact text below is the proposed **exact player-visible English wording** for the future locale file.
+**Current status:** authored as data in `content/cases/case-002/` and playable in the app; passes the validator and full-path solver with no issues. **Not yet cold-playtested.** Player-visible wording lives in `en.json` (testimony facts are phrased in the third person, as in Case 001, because facts are shown out of context).
 
 ## Briefing
 At 18:14, resident **Leah Moreno** receives a notification that parcel **RX-4816** has been delivered to Riverside Apartments. It contains a replacement camera lens she needs tomorrow. Nothing is outside her flat or in her mailbox. The courier insists the delivery was completed. Find out **who last handled the parcel** and **where it went**. The building has a staffed parcel room, not doorstep delivery.
@@ -166,8 +166,8 @@ C02-E06 was regenerated after the first version shifted its status column a row 
 - [x] Explicitly address non-delivery, doorstep theft, resident collection, neighbour theft, cleaner involvement and deliberate theft in player-visible evidence.
 - [x] Avoid identification from a log, credential or photo alone; require combined exclusive-access, rota and recovery evidence, not a single identifying record.
 - [x] Include an irrelevant red herring (E08), excluded from all proof.
-- [ ] Convert to versioned case JSON, localized strings and asset IDs.
-- [ ] Run schema validator, full-path solver and proof-subset tests (including irrelevant-extra rejection).
+- [x] Convert to versioned case JSON, localized strings and asset IDs.
+- [x] Run schema validator, full-path solver and proof-subset tests (including irrelevant-extra rejection).
 - [ ] Blind-review R02 as a shelf-scan contradiction despite the intervening five minutes, R03 as circumstantial support rather than proof of causation, and C01's exclusive-access inference for plausible undocumented exceptions.
 - [ ] Check every art asset and accessible alt text against the case facts.
 - [ ] Cold-playtest with 5–10 unfamiliar players; tune for 8–10 minutes.
