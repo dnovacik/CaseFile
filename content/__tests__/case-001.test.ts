@@ -1,8 +1,4 @@
-import { readdirSync } from 'node:fs';
-import { basename, extname, join } from 'node:path';
-
 import {
-  checkCase,
   createProgress,
   getAvailableEvidenceIds,
   solveCase,
@@ -12,10 +8,6 @@ import {
 import { describe, expect, it } from 'vitest';
 
 import { getCase } from '../index';
-import caseJson from '../cases/case-001/case.json';
-
-const assetDir = join(__dirname, '..', 'assets', 'cases');
-const assetIds = readdirSync(assetDir).map((file) => basename(file, extname(file)));
 
 const content = getCase('case_001')!;
 const def = content.definition;
