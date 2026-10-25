@@ -123,24 +123,25 @@ No Meridian Trust clue is included in this case. E08 (the café receipt) is the 
 Three inputs: **who last handled the parcel**, **what happened to it**, and **select supporting proof**. Gate submission by D01–D06, check the authored accepted proof sets per conclusion, and reject irrelevant extras without revealing the hidden answer. Wrong attempts return neutral feedback and allow retries. Resolution walks through receipt vs notification → public-shelf scan discrepancy → water incident and exclusive staff access → justified consented inspection → same-parcel match → best-supported reconstruction; Mara's explanation appears only after the report. **Do not display E09 or the answer before A01 and inspection.**
 
 ## Case art
-Use the IDs, filenames, sizes and status conventions of [ART-PROMPTS.md](ART-PROMPTS.md): **L = 1536×1024**, **P = 1024×1536**, **S = 1024×1024**; all assets **TODO**. Apply its photographic modern neo-noir, brass/abyss palette, no-unapproved-text, no-invented-clues and clue-equivalent alt-text rules. These are production prompts for future generation, **not** images included in this PR.
+Use the IDs, filenames, sizes and status conventions of [ART-PROMPTS.md](ART-PROMPTS.md): **L = 1536×1024**, **P = 1024×1536**, **S = 1024×1024**. Status: all assets **DONE** (in `content/assets/cases/case-02-*.webp`) except **C02-E06**, which must be regenerated (see below). Apply its photographic modern neo-noir, brass/abyss palette, no-unapproved-text, no-invented-clues and clue-equivalent alt-text rules. 
 
 **Case facts art must respect:** Riverside Apartments is contemporary, with a public collection shelf next to a staffed reception counter and a **single-door, staff-only back parcel room** accessed behind reception. No door to the apartments connects to the parcel room. There is **no CCTV view inside or behind the reception counter**. A water drip affected the area beside the public shelf. RX-4816 is **never** shown outside flat 4B. Before the follow-up, no image may disclose the parcel in tray Q or who moved it. The initial shelf scan says only **not found** for RX-4816; do not show a tray-Q location on any initial asset.
 
 **Recurring objects:** RX-4816 is a medium rectangular kraft cardboard box, intact brown packing tape, small dent on one lower corner, white shipping label for **RX-4816 / LEAH MORENO / 4B** (readable only when specifically allowed). Quarantine tray Q is a dark grey shallow plastic bin on a metal shelf in the back parcel room. Reception has a walnut counter and brass desk lamp; the public shelf is a separate low metal rack. The drip is near the public shelf, **not inside the sealed parcel**.
 
-### C02-BRIEFING — Briefing header · L · TODO
+### C02-BRIEFING — Briefing header · L · DONE
 File: `case-02-briefing.png`. A vacant section of the apartment lobby's public collection shelf beside a slightly damp tiled floor; brass lamplight from reception. The missing parcel is **not present**.
 - **Must:** bottom third dark and quiet for title overlay; contemporary building.
 - **Must not:** RX-4816, people, revealing back-room tray, text.
 
-### Locations — L · TODO
+### Locations — L · DONE
+The accepted parcel-room image showed a ceiling dome camera, which contradicts F07B (no camera in the back room); the ceiling was cropped out. Its floor is also wet although the leak is by the public shelf; regenerate with a dry floor if it is redone.
 - **C02-LOC-EXTERIOR** → `case-02-loc-exterior.png`: Riverside Apartments exterior at blue hour, residential lobby glowing warmly through glass. **Must:** believable modern apartment building; lower half suitable for overlay. **Must not:** readable unrelated signage, courier identifiable as culprit.
 - **C02-LOC-LOBBY** → `case-02-loc-lobby.png`: reception counter, public collection shelf and a modest damp patch with caution sign; doorway behind counter leads to staff-only back room but reveals **no contents**. **Must:** one staff doorway; no second route. **Must not:** visible RX-4816, CCTV looking into parcel room, extra entrances.
 - **C02-LOC-PARCEL** → `case-02-loc-parcel-room.png`: general back parcel room interior with metal racks and closed opaque grey bins, photographed before consented inspection. **Must:** no visible parcel labels or open bins. **Must not:** expose tray-Q contents or hidden evidence.
 - **C02-LOC-CORRIDOR** → `case-02-loc-corridor.png`: empty residential corridor with flat doors, no parcel on any doorstep. **Must:** calm, ordinary residential space. **Must not:** suggest parcel was delivered upstairs.
 
-### Cast portraits — S · TODO
+### Cast portraits — S · DONE
 Template: consistent head-and-shoulders portraits, neutral expressions, slightly off-camera right, identical low-key tungsten/blue-black lighting and background. No facial expression should pre-judge guilt.
 - **C02-CAST-LEAH** → `case-02-cast-leah.png`: resident, early 30s, curly dark hair, muted rust cardigan, concerned but composed.
 - **C02-CAST-OWEN** → `case-02-cast-owen.png`: courier, late 20s, close-cropped hair, charcoal delivery jacket without branding, tired and matter-of-fact.
@@ -148,7 +149,8 @@ Template: consistent head-and-shoulders portraits, neutral expressions, slightly
 - **C02-CAST-NICO** → `case-02-cast-nico.png`: cleaner, late 50s, greying beard, plain dark work polo, practical and reserved.
 - **Must:** consistent faces/clothing across any future evidence image. **Must not:** villain coding, invented name tags or logos.
 
-### Evidence photos — L unless specified · TODO
+### Evidence photos — L unless specified · DONE except C02-E06
+**C02-E06 · TODO (regenerate):** the accepted image shifts the status column down one row, so it reads as RX-4814 PRESENT, **RX-4815 NOT FOUND** and RX-4816 with no status, which contradicts F06A/F06B. Each status must sit on the same row as its parcel ID.
 - **C02-E05** → `case-02-e05.png` · L: clinical documentation photo of a batch handover receipt on the reception counter. **Allowed text only:** `RX-4814`, `RX-4815`, `RX-4816`, `Riverside reception`, `18:12`, `18:14`. **Must:** legible exact strings if rendered. **Must not:** personal signature/face implying who moved RX-4816, apartment doorstep.
 - **C02-E06** → `case-02-e06.png` · L: public-shelf scan printout with two present entries and one missing entry. **Allowed text only:** `RX-4814`, `RX-4815`, `RX-4816`, `18:17`, `PRESENT`, `NOT FOUND`, `PUBLIC SHELF`. **Must:** RX-4816 marked **NOT FOUND**; RX-4814 and RX-4815 marked **PRESENT**. **Must not:** `Q`, back-room location, person named as mover or hidden recovery.
 - **C02-E07** → `case-02-e07.png` · L: plain building floor plan and photo of a single staff-only back-room door behind reception, without readable names. **Must:** one entrance, no resident or cleaner access; alt text conveys the exclusive concierge-access rule. **Must not:** CCTV angle of parcel room or extra exit.
