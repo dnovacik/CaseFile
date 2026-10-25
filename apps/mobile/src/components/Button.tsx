@@ -9,21 +9,32 @@ type Props = {
   variant?: 'primary' | 'secondary';
   icon?: keyof typeof Ionicons.glyphMap;
   accessibilityHint?: string;
+  disabled?: boolean;
 };
 
-export function Button({ label, onPress, variant = 'primary', icon, accessibilityHint }: Props) {
+export function Button({
+  label,
+  onPress,
+  variant = 'primary',
+  icon,
+  accessibilityHint,
+  disabled = false,
+}: Props) {
   const primary = variant === 'primary';
   const color = primary ? colors.onBrass : colors.brass;
   return (
     <Pressable
       onPress={onPress}
+      disabled={disabled}
       accessibilityRole="button"
+      accessibilityState={{ disabled }}
       accessibilityLabel={label}
       accessibilityHint={accessibilityHint}
       style={({ pressed }) => [
         styles.base,
         primary ? styles.primary : styles.secondary,
         pressed && styles.pressed,
+        disabled && styles.disabled,
       ]}
     >
       <View style={styles.content}>
@@ -51,6 +62,9 @@ const styles = StyleSheet.create({
   },
   pressed: {
     opacity: 0.8,
+  },
+  disabled: {
+    opacity: 0.4,
   },
   content: {
     flexDirection: 'row',
