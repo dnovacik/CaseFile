@@ -1,0 +1,15 @@
+{
+  "name": "@casefile/content",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Authored Casefile case definitions, localized strings and art assets.",
+  "main": "index.ts",
+  "types": "index.ts",
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@casefile/engine": "*"
+  }
+}

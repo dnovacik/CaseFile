@@ -1,7 +1,7 @@
 # Case 001 — The Missing Watch (designer spoilers)
 **Setting:** Blackwood Gallery, private office; 17 October 2026.
 **Level:** Rookie. **Target length:** 8–10 minutes.
-**Current status:** authored narrative and reasoning specification, **not yet playtested or mechanically proven airtight**.
+**Current status:** authored as data in `content/cases/case-001/` (definition + English strings); passes the validator and full-path solver with no issues. **Not yet playtested.** The player-visible wording lives in `en.json`; this doc is the design summary.
 
 ## Briefing
 At 20:40, gallery owner Adrian Vale leaves his engraved silver wristwatch in an unlocked desk drawer and exits his private office. The door auto-locks. When he returns at 21:20, the office is locked, no forced entry is visible, and his watch is missing. Three staff members might have access.
@@ -17,7 +17,7 @@ At 20:40, gallery owner Adrian Vale leaves his engraved silver wristwatch in an 
 
 **E02 Marcus's statement, 21:41:** “I was in the print room the whole time, from about 20:45 until 21:15. The exhibition catalogues needed finishing. My access badge stayed clipped to my jacket. I didn't go anywhere near Adrian's office.” M-04 is assigned to Marcus.
 
-**E03 Elena's statement, 21:46:** “I was preparing labels in the storage room from 20:55 until around 21:10. Before that, I was on the exhibition floor. I saw Marcus heading toward the back corridor just before nine, but I didn't think anything of it.”
+**E03 Elena's statement, 21:46:** on the exhibition floor until just before nine, then preparing labels in the storage room from about 20:55 until around 21:10. At about 20:47 she saw Marcus go through the staff door to the back stairs up to the offices, away from the print room. (Moved from “just before nine”: that conflicted with her storage-room time and fell after the theft.)
 
 **E04 Thomas's statement, 21:52:** “I remained at the security desk from 20:30 until 21:15. The emergency office key stayed inside its sealed cabinet. Nobody reported a problem with the office door that evening.”
 
@@ -35,7 +35,8 @@ At 20:40, gallery owner Adrian Vale leaves his engraved silver wristwatch in an 
 | Time | Event |
 |---|---|
 | 20:40 | Adrian leaves watch in desk drawer and exits |
-| 20:46 | Marcus's workstation submits print job |
+| 20:46 | Marcus's workstation (in the print room) submits print job |
+| 20:47 | Elena sees Marcus take the back stairs toward the offices |
 | 20:48 | M-04 used at office |
 | 20:51 | Unknown dark-suited figure photographed near corridor |
 | 20:52 | Office locks |
@@ -45,19 +46,21 @@ At 20:40, gallery owner Adrian Vale leaves his engraved silver wristwatch in an 
 | 22:05 | Watch found in Marcus's jacket after A01 |
 
 ## Investigation and deduction graph
-1. **R01:** Compare Marcus's badge/whereabouts account (E02 fact) with authorized M-04 use (E05 fact). Label as a **discrepancy**, not proof that Marcus personally entered. Proposed relationship `contradicts` needs carefully authored fact wording and blind review.
-2. **D01:** Marcus's badge-related account is questionable.
-3. **R02:** Compare claim of staying in print room (E02) with unattended print process (E06). Use `supports` for “print job does not corroborate continuous presence,” not a strict contradiction.
-4. **D02:** Print records are insufficient alibi proof.
-5. **A01:** Once D01 + D02 established, request consented examination of Marcus's belongings; unlock E09.
-6. **R03:** Match E01 identity/absence of watch with E09 serial-matched recovery and possession; `supports`.
-7. **D03:** Marcus possessed the missing watch.
-8. **Final report:** Most strongly supported suspect Marcus; most likely entry with authorized badge M-04; supporting evidence E05 + E09 and deductions D01–D03.
+Mandatory path (uses all three relation types):
+1. **R01** `contradicts`: F02C Marcus says he went nowhere near the office × F05B badge M-04 (assigned to Marcus) unlocked the office at 20:48 → **D01** Marcus's badge account is questionable (either he was there, or his badge was).
+2. **R02** `supports`: F02B Marcus says he was in the print room 20:45–21:15 × F06A the job was sent from his print-room workstation at 20:46 → with F06B (printer then ran unattended) **D02** The print job is not an alibi.
+3. **A01** Request a consented search, available once D01 + D02 hold; reveals **E09** (not auto-inspected).
+4. **R03** `same_event`: F01A Adrian's watch in the drawer × F09A the watch found in Marcus's jacket → **D03** Marcus had Adrian's watch.
+5. **R05** `supports`: F02A Marcus says badge M-04 stayed clipped to his jacket × F09B Marcus says the jacket never left him → with D01, **D04** Nobody else had badge M-04.
 
-**Narrative solution:** Marcus took the watch, submitted the print job to create apparent cover and used office access; a private debt may be disclosed in a *post-case confession*, not used as proof of the theft.
+Optional links: **R04** E07 photo 20:51 × office locked 20:52 → D05; **R06** Elena saw Marcus on the back stairs × his print-room claim (`contradicts`) → D06; **R07** Thomas's key claim × intact seal 007342 → D07.
 
-### Logical caveat (must resolve before shipping)
-Badge ownership + access log + watch recovery strongly support Marcus's responsibility but do not **independently prove** his body was the one operating M-04. Either formulate the player's question as **best-supported reconstruction**, or add a decisive face/identity authentication clue. Do not claim mathematical certainty or legal proof from uncertain records. The current E07 photo isn't enough.
+**Final report:** C01 who → Marcus (requires D03 + D04; proof E05 + E09). C02 how → badge M-04 (requires D01; proof E05). Relevant extra proof is accepted (E02, E03, E06, E01, E04, E08 and deductions), but **E07 is not**: the photo identifies nobody, so citing it, or selecting everything, fails the report.
+
+**Narrative solution:** Marcus sent the print job for apparent cover, went up the back stairs, used his own badge at 20:48 and left by 20:52. A private debt is disclosed after the case as motive, never as proof.
+
+### Identity caveat — resolved
+Badge ownership and the access log alone don't prove Marcus used M-04. The case closes that gap with **D04**, built from Marcus's own statements: the badge stayed on his jacket, and the jacket never left him. Naming Marcus requires D04 (content test enforces it), the questions ask who *most likely* did it, and the resolution states the remaining uncertainty.
 
 ## Secondary narrative
 Optional background invoice names **The Meridian Trust**. It is worldbuilding only; unrelated to the mandatory solution and cannot block case completion.
@@ -66,12 +69,12 @@ Optional background invoice names **The Meridian Trust**. It is worldbuilding on
 Three inputs: suspect, entry method, select supporting evidence. Gate submission by mandatory deductions. Wrong attempts give neutral feedback and allow retries. Resolution explains statement → log discrepancy → printer misconception → justified follow-up → watch recovery → reconstruction. Explain residual uncertainty honestly.
 
 ## Case QA checklist
-- [ ] Convert sources to stable fact IDs and exact player-visible excerpts.
+- [x] Convert sources to stable fact IDs and exact player-visible excerpts.
 - [ ] Verify all three relationship types are semantically defensible.
 - [ ] Validate A01 unlock does not magically produce unsupported evidence.
-- [ ] Remove or clarify weak identity inference before release.
+- [x] Remove or clarify weak identity inference before release (D04).
 - [ ] Rule out alternative entry routes in player-visible evidence (fixed windows, sealed emergency key, no CCTV in the staff wing).
 - [ ] Check every art asset against the case facts (see [ART-PROMPTS.md](ART-PROMPTS.md)).
-- [ ] Run validator and full graph simulation.
+- [x] Run validator and full graph simulation (`content/__tests__/case-001.test.ts`).
 - [ ] Cold-playtest with players unfamiliar with the intended solution.
 - [ ] Confirm expected 8–10-minute experience and accessible photo clues.
