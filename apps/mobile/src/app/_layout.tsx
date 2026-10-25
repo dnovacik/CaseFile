@@ -9,10 +9,19 @@ import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
 import { useEffect } from 'react';
 
+import { startPersistence } from '@/storage/persistence';
 import { colors } from '@/theme';
 
 // Keep the splash screen up until the fonts are ready, so text never flashes in a fallback face.
 void SplashScreen.preventAutoHideAsync();
+
+// Restore saved progress synchronously before the first render, so the library never shows a stale
+// state. A storage failure must not block play; progress then lasts for the session only.
+try {
+  startPersistence();
+} catch (e) {
+  console.warn('[storage] Could not load saved progress', e);
+}
 
 export default function RootLayout() {
   const [loaded, error] = useFonts({

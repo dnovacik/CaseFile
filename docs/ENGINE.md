@@ -111,6 +111,13 @@ Fact pair order independence; wrong type rejection; hidden evidence blocked; no 
 ## Save strategy
 Version format (`schemaVersion`) independently from authored content (`contentVersion`); stable IDs and explicit migrations. Save elapsed time, hints and attempts; derive visible state rather than persisting UI presentation. SQLite is durable, Zustand is transient. Never silently reset purchased case progress.
 
+### Implemented storage (`apps/mobile/src/storage`)
+- **Devices:** `expo-sqlite` database `casefile.db` with a `case_progress` table (one row per case: content version, serialized progress, updated time) and an `archived_progress` table. Schema changes are ordered migrations tracked with `PRAGMA user_version`; released steps are never edited.
+- **Web:** the same interface over `localStorage`, so browser builds and tests keep working.
+- **Startup:** saves load synchronously before the first render. Each is checked with `loadProgress`; a save for another `contentVersion`, or one the engine rejects, is **moved to the archive** (with the reason) and that case starts fresh. Saves for cases not in the build are left untouched.
+- **Autosave:** every engine command produces a new progress object; a store subscription writes each changed case immediately. Transient UI state (fact selection, dismissed tips) is never saved.
+- **Content migrations** (upgrading an archived save to a new `contentVersion`) are not written yet; the archive keeps those saves recoverable until they are.
+
 ## Suggested repository organization
 ```text
 apps/mobile/          # Expo UI and router
