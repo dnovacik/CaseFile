@@ -43,6 +43,16 @@ Vertical connected deduction chain. D01 **“Marcus's badge account is questiona
 
 Three-step Final Report: (1) select suspect, (2) choose entry method, (3) select supporting evidence, then **Submit report**. Suspects: **Adrian Vale, Marcus Reed, Elena Cross, Thomas Bell** using their established portraits. Entry methods: **Badge M-04 / Emergency key / Door left open / Forced entry**. Evidence options are the evidence the player has inspected, including E09 once A01 (consented search) has revealed it **and the player has inspected it**. Proof sets may also include deductions (D01–D03). Require one suspect, one entry method and **at least one selected proof item** before submitting; the engine checks accepted proof sets and rejects irrelevant extra proof. For Case 001, the supporting evidence is **E05 + E09**, with deductions D01–D03. The generated image preselects Marcus, Badge M-04 and E02/E05/E06; those selections are illustrative, not defaults. Evaluate via the actual case/deduction engine.
 
+## UI-RESOLUTION — `mockups/ui-resolution.webp` — ACCEPTED
+![UI-RESOLUTION mockup](mockups/ui-resolution.webp)
+
+"Case closed" header with rating, reconstruction timeline (time chip, thumbnail, event, source chips), "What remains uncertain" panel, "Links you missed", case statistics (hints, wrong reports, time) and **Next case**. Keep the layout; correct the content:
+- Timeline text and source chips must come from case data. Canonical Case 001: 20:46 print job sent from Marcus's print-room workstation (**E06**); 20:47 Elena sees Marcus take the back stairs toward the offices (**E03**, not "towards the main hall"); 20:48 badge M-04 unlocks **Adrian's private office** (**E05**, D01); 20:52 office locks (**E05**, not E04); 22:05 watch found in Marcus's jacket (**E09**, D03). The mockup's chips are mislabelled.
+- "What remains uncertain" must use the resolution text: the corridor photo identifies nobody and nothing is a confession. Motive is not the uncertainty; Marcus's debts are disclosed after the case.
+- "Links you missed" lists only real optional relationships the player didn't establish (Case 001: R04 E07 × E05, R06 E03 × E02, R07 E04 × E08). The mocked "E07 ↔ E08" link doesn't exist.
+- The rating rewards independent reasoning (fewer hints and wrong reports), per the GDD; three stars with a wrong report is illustrative only. Time is personal stats only.
+- A per-step timeline needs authored data the schema doesn't have yet (an optional resolution timeline in `presentation`), to be added with this screen.
+
 ## Implementation notes
 - Mockups are about **2.5× denser** than a real phone (1024 px mock ≈ 390 pt wide), so card labels would render near 8 pt. Production body text must be **at least 15 pt**; scroll the six filter pills horizontally and reduce text on grid cards.
 - Blue **New** dots and green **Confirmed** chips fall outside the palette. Use brass/ivory with **icon + label**, never colour alone.
@@ -58,6 +68,6 @@ Three-step Final Report: (1) select suspect, (2) choose entry method, (3) select
 - Keep all text, timestamps and metadata aligned with the canonical Case 001 documents.
 
 ## Acceptance and asset availability
-Visual concepts: 5/5 accepted. Generated text in the images is not canonical; use case data. Mockup images: `docs/mockups/` (visual reference only).
+Visual concepts: 6/6 accepted. Generated text in the images is not canonical; use case data. Mockup images: `docs/mockups/` (visual reference only).
 
 See prior discussion on PR #2 for the UI-EVIDENCE, UI-DETAIL, UI-COMPARE and UI-BOARD review comments.
