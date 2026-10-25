@@ -12,7 +12,7 @@ import { FilterChips } from '@/components/FilterChips';
 import { artFor, caseText, getCase } from '@/content/cases';
 import { evidenceFilters, matchesFilter, type EvidenceFilter } from '@/content/evidence';
 import { ui } from '@/i18n/en';
-import { useCaseProgress } from '@/state/progress';
+import { useCaseProgress, useProgressStore, useSelectedFacts } from '@/state/progress';
 import { colors, spacing, type } from '@/theme';
 
 export default function EvidenceWorkspace() {
@@ -28,6 +28,13 @@ function Workspace({ caseId }: { caseId: string }) {
   const t = caseText(content);
   const progress = useCaseProgress(definition);
   const [filter, setFilter] = useState<EvidenceFilter>('all');
+  const selected = useSelectedFacts(caseId);
+  const tipDismissed = useProgressStore((state) => state.tipDismissed);
+  const dismissTip = useProgressStore((state) => state.dismissTip);
+  // Shown until the player has made a first link, so cross-evidence comparison is never missed.
+  const showTip = !tipDismissed && progress.discoveredRelationshipIds.length === 0;
+  const selectedOn = (evidenceId: string) =>
+    definition.facts.filter((f) => f.evidenceId === evidenceId && selected.includes(f.id)).length;
 
   const available = new Set(getAvailableEvidenceIds(definition, progress));
   const items = definition.evidence.filter(
@@ -75,6 +82,20 @@ function Workspace({ caseId }: { caseId: string }) {
         numColumns={2}
         columnWrapperStyle={styles.column}
         contentContainerStyle={styles.grid}
+        ListHeaderComponent={
+          showTip ? (
+            <View style={styles.tip}>
+              <View style={styles.tipHeader}>
+                <Ionicons name="bulb-outline" size={22} color={colors.brass} />
+                <Text style={[type.heading, styles.tipTitle]}>{ui.evidence.tipTitle}</Text>
+              </View>
+              <Text style={type.body}>{ui.evidence.tip}</Text>
+              <Pressable onPress={dismissTip} accessibilityRole="button" style={styles.tipDismiss}>
+                <Text style={[type.label, { color: colors.brass }]}>{ui.evidence.tipDismiss}</Text>
+              </Pressable>
+            </View>
+          ) : undefined
+        }
         ListEmptyComponent={<Text style={[type.body, styles.empty]}>{ui.evidence.empty}</Text>}
         renderItem={({ item }) => (
           <View style={styles.cell}>
@@ -83,6 +104,7 @@ function Workspace({ caseId }: { caseId: string }) {
               title={t(item.titleKey)}
               art={artFor(item.assetIds?.[0])}
               inspected={progress.inspectedEvidenceIds.includes(item.id)}
+              selectedCount={selectedOn(item.id)}
               onPress={() => router.push(`/case/${caseId}/evidence/${item.id}`)}
             />
           </View>
@@ -131,6 +153,28 @@ const styles = StyleSheet.create({
     flex: 1,
     // Keep a lone last card at half width instead of stretching across the row.
     maxWidth: '50%',
+  },
+  tip: {
+    backgroundColor: colors.slate,
+    borderWidth: 1,
+    borderColor: colors.brassDim,
+    borderRadius: 14,
+    padding: spacing.lg,
+    gap: spacing.sm,
+  },
+  tipHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: spacing.sm,
+  },
+  tipTitle: {
+    flex: 1,
+  },
+  tipDismiss: {
+    alignSelf: 'flex-end',
+    minHeight: 44,
+    justifyContent: 'center',
+    paddingHorizontal: spacing.sm,
   },
   empty: {
     textAlign: 'center',

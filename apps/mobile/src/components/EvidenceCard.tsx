@@ -13,18 +13,39 @@ type Props = {
   title: string;
   art?: ImageSource;
   inspected: boolean;
+  /** How many of this item's facts are currently picked for comparison. */
+  selectedCount?: number;
   onPress: () => void;
 };
 
-export function EvidenceCard({ evidence, title, art, inspected, onPress }: Props) {
+export function EvidenceCard({
+  evidence,
+  title,
+  art,
+  inspected,
+  selectedCount = 0,
+  onPress,
+}: Props) {
   const status = inspected ? ui.evidence.status.inspected : ui.evidence.status.new;
   const typeLabel = ui.evidence.types[evidence.type];
   return (
     <Pressable
       onPress={onPress}
       accessibilityRole="button"
-      accessibilityLabel={`${evidence.id}, ${title}, ${typeLabel}, ${status}`}
-      style={({ pressed }) => [styles.card, pressed && styles.pressed]}
+      accessibilityLabel={[
+        evidence.id,
+        title,
+        typeLabel,
+        status,
+        selectedCount > 0 ? ui.evidence.selectedInCard(selectedCount) : null,
+      ]
+        .filter(Boolean)
+        .join(', ')}
+      style={({ pressed }) => [
+        styles.card,
+        selectedCount > 0 && styles.cardSelected,
+        pressed && styles.pressed,
+      ]}
     >
       <View style={styles.thumb}>
         {art ? (
@@ -52,6 +73,14 @@ export function EvidenceCard({ evidence, title, art, inspected, onPress }: Props
         </View>
         <Text style={styles.title}>{title}</Text>
         <Text style={type.meta}>{typeLabel}</Text>
+        {selectedCount > 0 ? (
+          <View style={styles.status}>
+            <Ionicons name="checkmark-circle" size={14} color={colors.brass} />
+            <Text style={[styles.statusText, { color: colors.brass }]}>
+              {ui.evidence.selectedInCard(selectedCount)}
+            </Text>
+          </View>
+        ) : null}
       </View>
     </Pressable>
   );
@@ -65,6 +94,9 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: colors.line,
     overflow: 'hidden',
+  },
+  cardSelected: {
+    borderColor: colors.brass,
   },
   pressed: {
     opacity: 0.85,

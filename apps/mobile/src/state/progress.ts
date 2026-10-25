@@ -17,6 +17,9 @@ type ProgressState = {
   byCase: Record<string, CaseProgress>;
   /** Facts the player has picked for comparison, per case. Transient UI state, never saved. */
   selectedFacts: Record<string, Id[]>;
+  /** The "how to investigate" tip has been dismissed this session. */
+  tipDismissed: boolean;
+  dismissTip: () => void;
   setProgress: (progress: CaseProgress) => void;
   toggleFact: (caseId: string, factId: Id) => void;
   clearSelection: (caseId: string) => void;
@@ -28,6 +31,8 @@ export const MAX_SELECTED_FACTS = 2;
 export const useProgressStore = create<ProgressState>((set) => ({
   byCase: {},
   selectedFacts: {},
+  tipDismissed: false,
+  dismissTip: () => set({ tipDismissed: true }),
   setProgress: (progress) =>
     set((state) => ({ byCase: { ...state.byCase, [progress.caseId]: progress } })),
   toggleFact: (caseId, factId) =>
