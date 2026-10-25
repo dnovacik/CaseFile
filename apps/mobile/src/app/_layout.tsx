@@ -38,7 +38,9 @@ export default function RootLayout() {
           headerShown: false,
           contentStyle: { backgroundColor: colors.abyss },
         }}
-      />
+      >
+        <Stack.Screen name="case/[caseId]/compare" options={{ presentation: 'modal' }} />
+      </Stack>
     </>
   );
 }
