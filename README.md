@@ -16,6 +16,7 @@ An offline-first, neo-noir mobile detective and deduction puzzle game. Players s
 - [Case 001 — The Missing Watch](docs/CASE-001.md)
 - [Screen-by-screen UX and neo-noir identity](docs/UX.md)
 - [Implementation roadmap, PR sequencing and acceptance criteria](docs/ROADMAP.md)
+- [Art prompts — image generation brief](docs/ART-PROMPTS.md)
 
 ## Status
 Planning baseline only. Neither the Expo app nor the TypeScript engine is implemented in this repository yet. An earlier exploratory engine ZIP has **not** been imported or independently verified.
