@@ -17,7 +17,30 @@ An offline-first, neo-noir mobile detective and deduction puzzle game. Players s
 - [Screen-by-screen UX and neo-noir identity](docs/UX.md)
 - [Implementation roadmap, PR sequencing and acceptance criteria](docs/ROADMAP.md)
 
-## Status
-Planning baseline only. Neither the Expo app nor the TypeScript engine is implemented in this repository yet. An earlier exploratory engine ZIP has **not** been imported or independently verified.
+## Repository layout
+```text
+apps/mobile/       # Expo app (Expo Router, SDK 58)
+packages/engine/   # Pure TypeScript deduction engine + Vitest tests
+content/cases/     # Authored case JSON + locales
+content/assets/    # Photo / audio / media
+docs/              # Product and development references
+```
 
-**Next:** scaffold an Expo monorepo, implement a pure TypeScript game engine and validator, and ship one complete playable Case 001 before expanding content.
+## Getting started
+Requires Node 22 (see `.nvmrc`).
+
+```bash
+npm install          # install all workspaces
+npm start            # Expo dev server for apps/mobile
+npm run lint         # ESLint (the engine is blocked from importing React / RN / Expo)
+npm run typecheck    # tsc across workspaces
+npm test             # engine unit tests (Vitest)
+npm run format       # Prettier
+```
+
+CI (`.github/workflows/ci.yml`) runs format check, lint, typecheck, tests and an Android/iOS bundle export.
+
+## Status
+M0 scaffold: Expo app shell, engine package and CI. The deduction engine and Case 001 content are not implemented yet. An earlier exploratory engine ZIP has **not** been imported or independently verified.
+
+**Next:** `feat(engine): implement case schema and deterministic deduction reducer`.
