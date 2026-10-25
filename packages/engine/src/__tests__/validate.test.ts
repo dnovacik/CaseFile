@@ -80,6 +80,42 @@ describe('validateCase', () => {
     expect(codes(def)).toContain('unreachable_evidence');
   });
 
+  it('checks people, supporting proof and presentation', () => {
+    const def = makeCase();
+    def.people = [{ id: 'P1', nameKey: 'p1.name', roleKey: 'p1.role', assetId: 'portrait_p1' }];
+    def.conclusions[0]!.choices[0]!.personId = 'P404';
+    def.conclusions[0]!.supportingProofIds = ['F1'];
+    def.presentation = {
+      difficulty: 'rookie',
+      estimatedMinutes: { min: 10, max: 8 },
+      cardAssetId: 'card',
+      briefing: {
+        locationKey: 'b.location',
+        dateKey: 'b.date',
+        summaryKey: 'b.summary',
+        objectiveKeys: ['b.objective'],
+      },
+      resolutionKey: 'resolution',
+    };
+    const strings = makeStrings({ ...def, presentation: undefined, people: undefined });
+    const result = codes(def, { strings, assetIds: [] });
+    expect(result).toEqual(
+      expect.arrayContaining([
+        'missing_ref',
+        'invalid_proof',
+        'invalid_estimate',
+        'missing_string',
+        'missing_asset',
+      ]),
+    );
+  });
+
+  it('rejects a person ID that collides with another ID', () => {
+    const def = makeCase();
+    def.people = [{ id: 'E1', nameKey: 'p.name', roleKey: 'p.role' }];
+    expect(codes(def)).toContain('duplicate_id');
+  });
+
   it('rejects a case without conclusions', () => {
     const def = makeCase();
     def.conclusions = [];

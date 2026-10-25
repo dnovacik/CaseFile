@@ -22,8 +22,7 @@ An offline-first, neo-noir mobile detective and deduction puzzle game. Players s
 ```text
 apps/mobile/       # Expo app (Expo Router, SDK 58)
 packages/engine/   # Pure TypeScript deduction engine + Vitest tests
-content/cases/     # Authored case JSON + locales
-content/assets/    # Photo / audio / media
+content/           # @casefile/content: case JSON, locales, art assets + content tests
 docs/              # Product and development references
 ```
 
@@ -42,6 +41,6 @@ npm run format       # Prettier
 CI (`.github/workflows/ci.yml`) runs format check, lint, typecheck, tests and an Android/iOS bundle export.
 
 ## Status
-M0 scaffold and M1 engine: Expo app shell, CI, and a tested deduction engine with case validator and solver (`packages/engine`). Case 001 content and the game screens are not implemented yet. An earlier exploratory engine ZIP has **not** been imported or independently verified.
+M0 scaffold and M1 engine: Expo app shell, CI, and a tested deduction engine with case validator and solver (`packages/engine`). Case 001 is authored and validated (`content/`); the game screens are not implemented yet. An earlier exploratory engine ZIP has **not** been imported or independently verified.
 
-**Next:** `content: author validated case 001 JSON and translations`.
+**Next:** `feat(mobile): library and briefing`.

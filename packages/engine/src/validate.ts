@@ -61,6 +61,7 @@ export function validateCase(
     ...def.deductions,
     ...def.actions,
     ...def.conclusions,
+    ...(def.people ?? []),
   ].map((item) => item.id);
   for (const id of allIds) {
     if (seen.has(id)) error('duplicate_id', `ID "${id}" is used more than once`);
@@ -72,6 +73,7 @@ export function validateCase(
   const relationships = new Set(def.relationships.map((r) => r.id));
   const deductions = new Set(def.deductions.map((d) => d.id));
   const actions = new Set(def.actions.map((a) => a.id));
+  const people = new Set((def.people ?? []).map((p) => p.id));
 
   for (const fact of def.facts) {
     const owner = evidence.get(fact.evidenceId);
@@ -160,11 +162,24 @@ export function validateCase(
       if (!deductions.has(id))
         error('missing_ref', `Conclusion ${con.id} requires missing deduction ${id}`);
     }
-    for (const id of con.acceptedProofSets.flat()) {
+    for (const id of [...con.acceptedProofSets.flat(), ...(con.supportingProofIds ?? [])]) {
       if (!evidence.has(id) && !deductions.has(id)) {
         error('invalid_proof', `Conclusion ${con.id} proof ${id} is not evidence or a deduction`);
       }
     }
+    for (const choice of con.choices) {
+      if (choice.personId !== undefined && !people.has(choice.personId)) {
+        error(
+          'missing_ref',
+          `Conclusion ${con.id} choice ${choice.id} references missing person ${choice.personId}`,
+        );
+      }
+    }
+  }
+
+  const presentation = def.presentation;
+  if (presentation && presentation.estimatedMinutes.min > presentation.estimatedMinutes.max) {
+    error('invalid_estimate', 'presentation.estimatedMinutes.min is greater than max');
   }
 
   for (const hint of def.hints ?? []) {
@@ -185,10 +200,17 @@ export function validateCase(
   }
   if (options.assetIds) {
     const assets = new Set(options.assetIds);
-    for (const item of def.evidence) {
-      for (const assetId of item.assetIds ?? []) {
-        if (!assets.has(assetId))
-          error('missing_asset', `Evidence ${item.id} references missing asset ${assetId}`);
+    const referenced: [string, Id | undefined][] = [
+      ['Case card', presentation?.cardAssetId],
+      ['Briefing', presentation?.briefing.assetId],
+      ...def.evidence.flatMap((e) =>
+        (e.assetIds ?? []).map((a): [string, Id] => [`Evidence ${e.id}`, a]),
+      ),
+      ...(def.people ?? []).map((p): [string, Id | undefined] => [`Person ${p.id}`, p.assetId]),
+    ];
+    for (const [owner, assetId] of referenced) {
+      if (assetId !== undefined && !assets.has(assetId)) {
+        error('missing_asset', `${owner} references missing asset ${assetId}`);
       }
     }
   }
@@ -224,12 +246,25 @@ function collectKeys(def: CaseDefinition): string[] {
     ...def.evidence.flatMap((e) => [e.titleKey, e.bodyKey]),
     ...def.facts.map((f) => f.textKey),
     ...def.deductions.flatMap((d) => [d.titleKey, d.descriptionKey]),
-    ...def.actions.map((a) => a.titleKey),
+    ...def.actions.flatMap((a) => [
+      a.titleKey,
+      ...(a.justificationKey ? [a.justificationKey] : []),
+    ]),
     ...def.conclusions.flatMap((c) => [
       c.questionKey,
       ...c.choices.map((choice) => choice.labelKey),
     ]),
     ...(def.hints ?? []).map((h) => h.nudgeKey),
+    ...(def.people ?? []).flatMap((p) => [p.nameKey, p.roleKey]),
+    ...(def.presentation
+      ? [
+          def.presentation.briefing.locationKey,
+          def.presentation.briefing.dateKey,
+          def.presentation.briefing.summaryKey,
+          ...def.presentation.briefing.objectiveKeys,
+          def.presentation.resolutionKey,
+        ]
+      : []),
   ];
 }
 

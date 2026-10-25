@@ -11,6 +11,7 @@ export const EVIDENCE_TYPES = [
   'physical',
   'timeline',
 ] as const;
+export const DIFFICULTIES = ['rookie', 'detective', 'inspector'] as const;
 
 const id = z.string().min(1);
 const key = z.string().min(1);
@@ -56,6 +57,8 @@ export const deductionSchema = z.strictObject({
 export const followUpActionSchema = z.strictObject({
   id,
   titleKey: key,
+  /** Why this action is justified now; shown before the player confirms it. */
+  justificationKey: key.optional(),
   requires: requirementsSchema,
   revealsEvidenceIds: z.array(id),
 });
@@ -64,10 +67,40 @@ export const conclusionSchema = z.strictObject({
   id,
   questionKey: key,
   correctChoiceId: id,
-  choices: z.array(z.strictObject({ id, labelKey: key })).min(2),
+  choices: z.array(z.strictObject({ id, labelKey: key, personId: id.optional() })).min(2),
   requiresDeductionIds: z.array(id),
   /** Each set lists evidence and/or deduction IDs; selecting any one complete set proves the answer. */
   acceptedProofSets: z.array(z.array(id).min(1)).min(1),
+  /**
+   * Relevant proof the player may also select without failing the report, although it is not
+   * required. Anything outside the accepted sets and this list counts as irrelevant.
+   */
+  supportingProofIds: z.array(id).optional(),
+});
+
+export const personSchema = z.strictObject({
+  id,
+  nameKey: key,
+  roleKey: key,
+  assetId: id.optional(),
+});
+
+/** Presentation data for the library card, briefing and resolution screens. */
+export const presentationSchema = z.strictObject({
+  difficulty: z.enum(DIFFICULTIES),
+  estimatedMinutes: z.strictObject({
+    min: z.number().int().positive(),
+    max: z.number().int().positive(),
+  }),
+  cardAssetId: id.optional(),
+  briefing: z.strictObject({
+    assetId: id.optional(),
+    locationKey: key,
+    dateKey: key,
+    summaryKey: key,
+    objectiveKeys: z.array(key).min(1),
+  }),
+  resolutionKey: key,
 });
 
 /** Ordered list of relationships the hint system may point at; first eligible entry wins. */
@@ -81,6 +114,8 @@ export const caseDefinitionSchema = z.strictObject({
   id,
   contentVersion: z.number().int().positive(),
   titleKey: key,
+  presentation: presentationSchema.optional(),
+  people: z.array(personSchema).optional(),
   evidence: z.array(evidenceSchema),
   facts: z.array(factSchema),
   relationships: z.array(relationshipSchema),
@@ -114,5 +149,8 @@ export type Deduction = z.infer<typeof deductionSchema>;
 export type FollowUpAction = z.infer<typeof followUpActionSchema>;
 export type Conclusion = z.infer<typeof conclusionSchema>;
 export type Hint = z.infer<typeof hintSchema>;
+export type Person = z.infer<typeof personSchema>;
+export type Presentation = z.infer<typeof presentationSchema>;
+export type Difficulty = (typeof DIFFICULTIES)[number];
 export type CaseDefinition = z.infer<typeof caseDefinitionSchema>;
 export type CaseProgress = z.infer<typeof caseProgressSchema>;

@@ -1,0 +1,261 @@
+{
+  "schemaVersion": 1,
+  "id": "case_001",
+  "contentVersion": 1,
+  "titleKey": "c001.title",
+  "presentation": {
+    "difficulty": "rookie",
+    "estimatedMinutes": { "min": 8, "max": 10 },
+    "cardAssetId": "case-01-card",
+    "briefing": {
+      "assetId": "case-01-briefing",
+      "locationKey": "c001.briefing.location",
+      "dateKey": "c001.briefing.date",
+      "summaryKey": "c001.briefing.summary",
+      "objectiveKeys": [
+        "c001.briefing.objective1",
+        "c001.briefing.objective2",
+        "c001.briefing.objective3"
+      ]
+    },
+    "resolutionKey": "c001.resolution"
+  },
+  "people": [
+    {
+      "id": "P_ADRIAN",
+      "nameKey": "c001.person.adrian.name",
+      "roleKey": "c001.person.adrian.role",
+      "assetId": "case-01-cast-adrian"
+    },
+    {
+      "id": "P_MARCUS",
+      "nameKey": "c001.person.marcus.name",
+      "roleKey": "c001.person.marcus.role",
+      "assetId": "case-01-cast-marcus"
+    },
+    {
+      "id": "P_ELENA",
+      "nameKey": "c001.person.elena.name",
+      "roleKey": "c001.person.elena.role",
+      "assetId": "case-01-cast-elena"
+    },
+    {
+      "id": "P_THOMAS",
+      "nameKey": "c001.person.thomas.name",
+      "roleKey": "c001.person.thomas.role",
+      "assetId": "case-01-cast-thomas"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "E01",
+      "type": "testimony",
+      "titleKey": "c001.e01.title",
+      "bodyKey": "c001.e01.body",
+      "initial": true,
+      "factIds": ["F01A", "F01B", "F01C"],
+      "assetIds": ["case-01-cast-adrian"]
+    },
+    {
+      "id": "E02",
+      "type": "testimony",
+      "titleKey": "c001.e02.title",
+      "bodyKey": "c001.e02.body",
+      "initial": true,
+      "factIds": ["F02A", "F02B", "F02C"],
+      "assetIds": ["case-01-cast-marcus"]
+    },
+    {
+      "id": "E03",
+      "type": "testimony",
+      "titleKey": "c001.e03.title",
+      "bodyKey": "c001.e03.body",
+      "initial": true,
+      "factIds": ["F03A", "F03B", "F03C"],
+      "assetIds": ["case-01-cast-elena"]
+    },
+    {
+      "id": "E04",
+      "type": "testimony",
+      "titleKey": "c001.e04.title",
+      "bodyKey": "c001.e04.body",
+      "initial": true,
+      "factIds": ["F04A", "F04B"],
+      "assetIds": ["case-01-cast-thomas"]
+    },
+    {
+      "id": "E05",
+      "type": "digital",
+      "titleKey": "c001.e05.title",
+      "bodyKey": "c001.e05.body",
+      "initial": true,
+      "factIds": ["F05A", "F05B", "F05C", "F05D"]
+    },
+    {
+      "id": "E06",
+      "type": "digital",
+      "titleKey": "c001.e06.title",
+      "bodyKey": "c001.e06.body",
+      "initial": true,
+      "factIds": ["F06A", "F06B", "F06C"]
+    },
+    {
+      "id": "E07",
+      "type": "photograph",
+      "titleKey": "c001.e07.title",
+      "bodyKey": "c001.e07.body",
+      "initial": true,
+      "factIds": ["F07A"],
+      "assetIds": ["case-01-e07"]
+    },
+    {
+      "id": "E08",
+      "type": "document",
+      "titleKey": "c001.e08.title",
+      "bodyKey": "c001.e08.body",
+      "initial": true,
+      "factIds": ["F08A", "F08B", "F08C"],
+      "assetIds": ["case-01-e08"]
+    },
+    {
+      "id": "E09",
+      "type": "physical",
+      "titleKey": "c001.e09.title",
+      "bodyKey": "c001.e09.body",
+      "initial": false,
+      "factIds": ["F09A", "F09B"],
+      "assetIds": ["case-01-e09"]
+    }
+  ],
+  "facts": [
+    { "id": "F01A", "evidenceId": "E01", "textKey": "c001.f01a" },
+    { "id": "F01B", "evidenceId": "E01", "textKey": "c001.f01b" },
+    { "id": "F01C", "evidenceId": "E01", "textKey": "c001.f01c" },
+    { "id": "F02A", "evidenceId": "E02", "textKey": "c001.f02a" },
+    { "id": "F02B", "evidenceId": "E02", "textKey": "c001.f02b" },
+    { "id": "F02C", "evidenceId": "E02", "textKey": "c001.f02c" },
+    { "id": "F03A", "evidenceId": "E03", "textKey": "c001.f03a" },
+    { "id": "F03B", "evidenceId": "E03", "textKey": "c001.f03b" },
+    { "id": "F03C", "evidenceId": "E03", "textKey": "c001.f03c" },
+    { "id": "F04A", "evidenceId": "E04", "textKey": "c001.f04a" },
+    { "id": "F04B", "evidenceId": "E04", "textKey": "c001.f04b" },
+    { "id": "F05A", "evidenceId": "E05", "textKey": "c001.f05a" },
+    { "id": "F05B", "evidenceId": "E05", "textKey": "c001.f05b" },
+    { "id": "F05C", "evidenceId": "E05", "textKey": "c001.f05c" },
+    { "id": "F05D", "evidenceId": "E05", "textKey": "c001.f05d" },
+    { "id": "F06A", "evidenceId": "E06", "textKey": "c001.f06a" },
+    { "id": "F06B", "evidenceId": "E06", "textKey": "c001.f06b" },
+    { "id": "F06C", "evidenceId": "E06", "textKey": "c001.f06c" },
+    { "id": "F07A", "evidenceId": "E07", "textKey": "c001.f07a" },
+    { "id": "F08A", "evidenceId": "E08", "textKey": "c001.f08a" },
+    { "id": "F08B", "evidenceId": "E08", "textKey": "c001.f08b" },
+    { "id": "F08C", "evidenceId": "E08", "textKey": "c001.f08c" },
+    { "id": "F09A", "evidenceId": "E09", "textKey": "c001.f09a" },
+    { "id": "F09B", "evidenceId": "E09", "textKey": "c001.f09b" }
+  ],
+  "relationships": [
+    { "id": "R01", "factIds": ["F02C", "F05B"], "type": "contradicts" },
+    { "id": "R02", "factIds": ["F02B", "F06A"], "type": "supports" },
+    { "id": "R03", "factIds": ["F01A", "F09A"], "type": "same_event" },
+    { "id": "R04", "factIds": ["F07A", "F05C"], "type": "supports" },
+    { "id": "R05", "factIds": ["F02A", "F09B"], "type": "supports" },
+    { "id": "R06", "factIds": ["F03B", "F02B"], "type": "contradicts" },
+    { "id": "R07", "factIds": ["F04B", "F08A"], "type": "supports" }
+  ],
+  "deductions": [
+    {
+      "id": "D01",
+      "titleKey": "c001.d01.title",
+      "descriptionKey": "c001.d01.description",
+      "requires": { "relationshipIds": ["R01"] },
+      "mandatory": true
+    },
+    {
+      "id": "D02",
+      "titleKey": "c001.d02.title",
+      "descriptionKey": "c001.d02.description",
+      "requires": { "relationshipIds": ["R02"], "factIds": ["F06B"] },
+      "mandatory": true
+    },
+    {
+      "id": "D03",
+      "titleKey": "c001.d03.title",
+      "descriptionKey": "c001.d03.description",
+      "requires": { "relationshipIds": ["R03"] },
+      "mandatory": true
+    },
+    {
+      "id": "D04",
+      "titleKey": "c001.d04.title",
+      "descriptionKey": "c001.d04.description",
+      "requires": { "relationshipIds": ["R05"], "deductionIds": ["D01"] },
+      "mandatory": true
+    },
+    {
+      "id": "D05",
+      "titleKey": "c001.d05.title",
+      "descriptionKey": "c001.d05.description",
+      "requires": { "relationshipIds": ["R04"] },
+      "mandatory": false
+    },
+    {
+      "id": "D06",
+      "titleKey": "c001.d06.title",
+      "descriptionKey": "c001.d06.description",
+      "requires": { "relationshipIds": ["R06"] },
+      "mandatory": false
+    },
+    {
+      "id": "D07",
+      "titleKey": "c001.d07.title",
+      "descriptionKey": "c001.d07.description",
+      "requires": { "relationshipIds": ["R07"] },
+      "mandatory": false
+    }
+  ],
+  "actions": [
+    {
+      "id": "A01",
+      "titleKey": "c001.a01.title",
+      "justificationKey": "c001.a01.justification",
+      "requires": { "deductionIds": ["D01", "D02"] },
+      "revealsEvidenceIds": ["E09"]
+    }
+  ],
+  "conclusions": [
+    {
+      "id": "C01",
+      "questionKey": "c001.c01.question",
+      "correctChoiceId": "marcus",
+      "choices": [
+        { "id": "adrian", "labelKey": "c001.person.adrian.name", "personId": "P_ADRIAN" },
+        { "id": "marcus", "labelKey": "c001.person.marcus.name", "personId": "P_MARCUS" },
+        { "id": "elena", "labelKey": "c001.person.elena.name", "personId": "P_ELENA" },
+        { "id": "thomas", "labelKey": "c001.person.thomas.name", "personId": "P_THOMAS" }
+      ],
+      "requiresDeductionIds": ["D03", "D04"],
+      "acceptedProofSets": [["E05", "E09"]],
+      "supportingProofIds": ["E02", "E03", "E06", "D01", "D02", "D03", "D04", "D06"]
+    },
+    {
+      "id": "C02",
+      "questionKey": "c001.c02.question",
+      "correctChoiceId": "badge",
+      "choices": [
+        { "id": "badge", "labelKey": "c001.c02.badge" },
+        { "id": "emergency_key", "labelKey": "c001.c02.emergency_key" },
+        { "id": "door_left_open", "labelKey": "c001.c02.door_left_open" },
+        { "id": "forced_entry", "labelKey": "c001.c02.forced_entry" }
+      ],
+      "requiresDeductionIds": ["D01"],
+      "acceptedProofSets": [["E05"]],
+      "supportingProofIds": ["E01", "E04", "E08", "D01", "D07"]
+    }
+  ],
+  "hints": [
+    { "relationshipId": "R01", "nudgeKey": "c001.hint.r01" },
+    { "relationshipId": "R02", "nudgeKey": "c001.hint.r02" },
+    { "relationshipId": "R03", "nudgeKey": "c001.hint.r03" },
+    { "relationshipId": "R05", "nudgeKey": "c001.hint.r05" }
+  ]
+}

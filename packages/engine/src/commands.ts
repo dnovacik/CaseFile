@@ -191,7 +191,8 @@ export type ReportResult = { code: 'valid' } | Rejection;
  *
  * The report is accepted when every answer is correct, each conclusion has at least one accepted
  * proof set fully contained in the selection, and nothing irrelevant is selected (every selected
- * ID belongs to some accepted proof set). The last rule stops "select everything" from passing.
+ * ID belongs to an accepted proof set or a conclusion's supporting proof). The last rule stops
+ * "select everything" from passing.
  * A rejected report counts as an incorrect submission and keeps all other progress.
  */
 export function submitReport(
@@ -220,7 +221,12 @@ export function submitReport(
   if (!selectedProofIds.every(proofHeld)) return reject(progress, 'not_available');
 
   const selected = new Set(selectedProofIds);
-  const relevant = new Set(def.conclusions.flatMap((c) => c.acceptedProofSets.flat()));
+  const relevant = new Set(
+    def.conclusions.flatMap((c) => [
+      ...c.acceptedProofSets.flat(),
+      ...(c.supportingProofIds ?? []),
+    ]),
+  );
   const correct =
     def.conclusions.every(
       (c) =>
