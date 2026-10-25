@@ -27,7 +27,7 @@ export {
   type ReportResult,
   type ResultCode,
 } from './commands';
-export { applyCommand, type Command, type CommandResult } from './reducer';
+export { applyCommand, type Command, type CommandResult, type CommandResultMap } from './reducer';
 export { loadProgress, serializeProgress, type LoadResult } from './save';
 export { solveCase, type Solution, type SolverStep } from './solver';
 export {

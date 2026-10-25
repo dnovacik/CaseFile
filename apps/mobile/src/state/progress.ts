@@ -4,7 +4,7 @@ import {
   type CaseDefinition,
   type CaseProgress,
   type Command,
-  type CommandResult,
+  type CommandResultMap,
   type Id,
 } from '@casefile/engine';
 import { create } from 'zustand';
@@ -59,7 +59,10 @@ export function useSelectedFacts(caseId: string): Id[] {
  * Run an engine command against the case's current progress and store the result. The engine
  * decides everything; the UI only renders the returned result code.
  */
-export function dispatch(def: CaseDefinition, command: Command): CommandResult {
+export function dispatch<C extends Command>(
+  def: CaseDefinition,
+  command: C,
+): CommandResultMap[C['type']] {
   const { byCase, setProgress } = useProgressStore.getState();
   const outcome = applyCommand(def, byCase[def.id] ?? createProgress(def), command);
   setProgress(outcome.progress);

@@ -46,10 +46,7 @@ function Compare({ content }: { content: CaseContent }) {
       factIds: [facts[0]!.id, facts[1]!.id],
       relation,
     });
-    const deductionIds =
-      result.code === 'valid' && 'unlockedDeductionIds' in result
-        ? result.unlockedDeductionIds
-        : [];
+    const deductionIds = result.code === 'valid' ? result.unlockedDeductionIds : [];
     if (result.code === 'valid') clearSelection(definition.id);
     setOutcome({ code: result.code, deductionIds });
     AccessibilityInfo.announceForAccessibility(ui.compare.results[result.code]);

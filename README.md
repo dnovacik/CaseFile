@@ -41,6 +41,6 @@ npm run format       # Prettier
 CI (`.github/workflows/ci.yml`) runs format check, lint, typecheck, tests and an Android/iOS bundle export.
 
 ## Status
-M0 scaffold and M1 engine: Expo app shell, CI, and a tested deduction engine with case validator and solver (`packages/engine`). Case 001 is authored and validated (`content/`); the app has the Case Library, Briefing, Evidence workspace, Evidence Detail and Compare screens; the Deduction Board and Final Report are next. An earlier exploratory engine ZIP has **not** been imported or independently verified.
+M0 scaffold and M1 engine: Expo app shell, CI, and a tested deduction engine with case validator and solver (`packages/engine`). Case 001 is authored and validated (`content/`); Case 001 is fully playable in the app, from the library through evidence, comparison, the deduction board, the follow-up search, the final report and the resolution. Progress is in memory until the SQLite milestone. An earlier exploratory engine ZIP has **not** been imported or independently verified.
 
-**Next:** `feat(mobile): deduction board and follow-up actions`.
+**Next:** `feat(storage): SQLite autosave and migration`.

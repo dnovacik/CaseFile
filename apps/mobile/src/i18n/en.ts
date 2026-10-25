@@ -34,6 +34,8 @@ export const ui = {
   evidence: {
     title: 'Evidence',
     back: 'Briefing',
+    /** Detail can be opened from the workspace or the board, so the label stays generic. */
+    detailBack: 'Back',
     filters: {
       all: 'All',
       testimony: 'Testimony',
@@ -94,6 +96,64 @@ export const ui = {
     },
     newDeductions: 'New deduction',
     missing: 'Select two facts first.',
+  },
+  board: {
+    title: 'Deduction board',
+    open: 'Board',
+    back: 'Evidence',
+    confirmed: 'Confirmed',
+    optional: 'Optional',
+    empty: 'No deductions yet. Compare facts from the evidence to build your case.',
+    remaining: (n: number) =>
+      n === 0
+        ? 'All key deductions uncovered. You can file your report.'
+        : `${n} key ${n === 1 ? 'deduction' : 'deductions'} still to uncover.`,
+    actionsTitle: 'Next step',
+    performAction: 'Request it',
+    actionDone: 'Done',
+    revealed: 'New evidence obtained',
+    viewEvidence: 'View evidence',
+    report: 'File final report',
+    reportLocked: 'Uncover every key deduction to file your report.',
+    hint: {
+      title: 'Need a hint?',
+      ask: 'Get a hint',
+      more: 'Show the two facts',
+      reveal: 'Establish the link for me',
+      focus: 'Compare these two facts:',
+      revealed: 'Link established by hint.',
+      none: 'No hint right now. Try inspecting new evidence or taking the next step.',
+      used: (n: number) => `Hints used: ${n}`,
+    },
+  },
+  report: {
+    title: 'Final report',
+    back: 'Board',
+    intro: 'Identify the most likely explanation and support it with evidence.',
+    evidenceStep: 'Which evidence supports your conclusion?',
+    evidenceHint:
+      'Select the evidence that proves your answers. Irrelevant evidence weakens a report.',
+    submit: 'Submit report',
+    incomplete: 'Answer every question and select at least one piece of evidence.',
+    results: {
+      not_established:
+        'The report isn\x27t supported yet. Check your answers and the evidence you selected, then try again. Your investigation is unchanged.',
+      requires_more_investigation: 'You haven\x27t uncovered enough yet. Return to the board.',
+      not_available: 'Some selected evidence hasn\x27t been inspected.',
+      invalid_input: 'Answer every question first.',
+      already_discovered: 'This case is already closed.',
+    },
+  },
+  resolution: {
+    closed: 'Case closed',
+    rating: (stars: number) => `Rating: ${stars} of 3`,
+    missedTitle: 'Insights you missed',
+    missedNone: 'You found every optional insight.',
+    statsTitle: 'Case statistics',
+    hints: 'Hints used',
+    wrongReports: 'Wrong reports',
+    library: 'Back to case library',
+    replay: 'Replay case',
   },
   settings: {
     title: 'Settings',

@@ -21,10 +21,28 @@ export type Command =
   | { type: 'requestHint'; stage: HintStage }
   | { type: 'submitReport'; answers: Record<Id, Id>; proofIds: Id[] };
 
-export type CommandResult = InspectResult | LinkResult | ActionResult | HintResult | ReportResult;
+/** The result type each command returns. */
+export type CommandResultMap = {
+  inspectEvidence: InspectResult;
+  linkFacts: LinkResult;
+  performAction: ActionResult;
+  requestHint: HintResult;
+  submitReport: ReportResult;
+};
+
+export type CommandResult = CommandResultMap[Command['type']];
 
 /** Single entry point for UI stores: dispatch a command, get the next progress and its result. */
-export function applyCommand(
+export function applyCommand<C extends Command>(
+  def: CaseDefinition,
+  progress: CaseProgress,
+  command: C,
+): Outcome<CommandResultMap[C['type']]> {
+  return run(def, progress, command) as Outcome<CommandResultMap[C['type']]>;
+}
+
+// TypeScript can't narrow a generic switch, so the typed wrapper above delegates to this.
+function run(
   def: CaseDefinition,
   progress: CaseProgress,
   command: Command,

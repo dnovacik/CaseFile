@@ -40,7 +40,10 @@ function Detail({ content, evidenceId }: { content: CaseContent; evidenceId: str
   }, [available, inspected, definition, evidenceId]);
 
   const header = (
-    <BackHeader backLabel={ui.evidence.title} fallbackHref={`/case/${definition.id}/evidence`} />
+    <BackHeader
+      backLabel={ui.evidence.detailBack}
+      fallbackHref={`/case/${definition.id}/evidence`}
+    />
   );
 
   if (!evidence || !available) {

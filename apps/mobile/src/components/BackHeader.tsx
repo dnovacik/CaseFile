@@ -1,5 +1,5 @@
 import Ionicons from '@expo/vector-icons/Ionicons';
-import { router } from 'expo-router';
+import { router, type Href } from 'expo-router';
 import type { ReactNode } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 
@@ -8,7 +8,7 @@ import { colors, minTouch, spacing, type } from '@/theme';
 type Props = {
   backLabel: string;
   /** Where to go when there's no history (e.g. after a deep link). */
-  fallbackHref: string;
+  fallbackHref: Href;
   right?: ReactNode;
 };
 
