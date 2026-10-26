@@ -13,8 +13,8 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { Button } from '@/components/Button';
 import { FactChip } from '@/components/FactChip';
-import { caseText, getCase, type CaseContent } from '@/content/cases';
-import { ui } from '@/i18n/en';
+import { getCase, useCaseText, type CaseContent } from '@/content/cases';
+import { useUi } from '@/i18n';
 import { dispatch, useCaseProgress, useProgressStore, useSelectedFacts } from '@/state/progress';
 import { colors, fonts, minTouch, radii, spacing, type } from '@/theme';
 
@@ -34,6 +34,7 @@ export default function CompareSheet() {
 }
 
 function Compare({ content }: { content: CaseContent }) {
+  const ui = useUi();
   const { definition } = content;
   const selected = useSelectedFacts(definition.id);
   const clearSelection = useProgressStore((state) => state.clearSelection);
@@ -184,7 +185,8 @@ function FactCard({
   content: CaseContent;
   onChange?: () => void;
 }) {
-  const t = caseText(content);
+  const t = useCaseText(content);
+  const ui = useUi();
   const source = content.definition.evidence.find((e) => e.id === fact.evidenceId);
   return (
     <View style={styles.factCard}>
@@ -221,7 +223,8 @@ function FactPicker({
   exclude: Id;
   onPick: (factId: Id) => void;
 }) {
-  const t = caseText(content);
+  const t = useCaseText(content);
+  const ui = useUi();
   const { definition } = content;
   const progress = useCaseProgress(definition);
   const sources = definition.evidence.filter((e) => progress.inspectedEvidenceIds.includes(e.id));
@@ -258,7 +261,8 @@ function FactPicker({
 }
 
 function Result({ outcome, content }: { outcome: Outcome; content: CaseContent }) {
-  const t = caseText(content);
+  const t = useCaseText(content);
+  const ui = useUi();
   const valid = outcome.code === 'valid';
   const deductions = outcome.deductionIds
     .map((id) => content.definition.deductions.find((d) => d.id === id))

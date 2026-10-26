@@ -39,7 +39,7 @@ describe('Case 002 — Last Delivery', () => {
   });
 
   it('keeps the sticky note unsigned and free of a confession', () => {
-    const strings = getCase('case_002')!.strings;
+    const strings = getCase('case_002')!.strings.en;
     expect(strings['c002.f09b']).toContain('unsigned');
     expect(
       Object.keys(strings).some((k) => k.startsWith('c002.f09') && /I moved/.test(strings[k]!)),

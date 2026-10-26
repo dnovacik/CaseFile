@@ -10,7 +10,7 @@ import {
 } from '@casefile/engine';
 import { describe, expect, it } from 'vitest';
 
-import { cases } from '../index';
+import { cases, locales } from '../index';
 
 const assetIds = readdirSync(join(__dirname, '..', 'assets', 'cases')).map((file) =>
   basename(file, extname(file)),
@@ -27,10 +27,10 @@ describe.each(cases.map((c) => [c.definition.id, c] as const))('%s', (_, content
     return { ...progress, status: 'active' };
   }
 
-  it('passes every validation check with no warnings', async () => {
+  it.each(locales)('passes every validation check with no warnings in %s', async (locale) => {
     const { checkCase } = await import('@casefile/engine');
     const result = checkCase(JSON.parse(JSON.stringify(def)), {
-      strings: content.strings,
+      strings: content.strings[locale],
       assetIds,
     });
     expect(result.issues).toEqual([]);
@@ -39,8 +39,14 @@ describe.each(cases.map((c) => [c.definition.id, c] as const))('%s', (_, content
 
   it('has no unused strings', () => {
     const used = JSON.stringify(def);
-    const unused = Object.keys(content.strings).filter((key) => !used.includes(`"${key}"`));
+    const unused = Object.keys(content.strings.en).filter((key) => !used.includes(`"${key}"`));
     expect(unused).toEqual([]);
+  });
+
+  it.each(locales)('translates exactly the English keys into %s, none left blank', (locale) => {
+    const strings = content.strings[locale];
+    expect(Object.keys(strings).sort()).toEqual(Object.keys(content.strings.en).sort());
+    expect(Object.keys(strings).filter((key) => !strings[key]!.trim())).toEqual([]);
   });
 
   it('is solvable end to end and reaches every deduction', () => {
@@ -99,7 +105,9 @@ describe.each(cases.map((c) => [c.definition.id, c] as const))('%s', (_, content
 
   it('gives every photograph a text description of its clues', () => {
     for (const item of def.evidence.filter((e) => e.type === 'photograph')) {
-      expect(content.strings[item.bodyKey]!.length).toBeGreaterThan(200);
+      for (const locale of locales) {
+        expect(content.strings[locale][item.bodyKey]!.length).toBeGreaterThan(200);
+      }
     }
   });
 });

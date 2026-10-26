@@ -9,9 +9,9 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { BackHeader } from '@/components/BackHeader';
 import { CompareTray } from '@/components/CompareTray';
 import { FactChip } from '@/components/FactChip';
-import { artFor, caseText, getCase, type CaseContent } from '@/content/cases';
+import { artFor, getCase, useCaseText, type CaseContent } from '@/content/cases';
 import { evidenceIcon } from '@/content/evidence';
-import { ui } from '@/i18n/en';
+import { useUi } from '@/i18n';
 import { dispatch, useCaseProgress, useProgressStore, useSelectedFacts } from '@/state/progress';
 import { colors, fonts, radii, spacing, type } from '@/theme';
 
@@ -24,7 +24,8 @@ export default function EvidenceDetail() {
 
 function Detail({ content, evidenceId }: { content: CaseContent; evidenceId: string }) {
   const { definition } = content;
-  const t = caseText(content);
+  const t = useCaseText(content);
+  const ui = useUi();
   const progress = useCaseProgress(definition);
   const selected = useSelectedFacts(definition.id);
   const toggleFact = useProgressStore((state) => state.toggleFact);

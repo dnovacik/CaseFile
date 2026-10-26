@@ -10,21 +10,21 @@ import { Button } from '@/components/Button';
 import { CaseCard } from '@/components/CaseCard';
 import { Pill } from '@/components/Pill';
 import { SegmentedControl } from '@/components/SegmentedControl';
-import { artFor, caseText, cases, upcomingCases, type CaseContent } from '@/content/cases';
-import { ui } from '@/i18n/en';
+import { artFor, cases, upcomingCases, useCaseText, type CaseContent } from '@/content/cases';
+import { useUi, type UiStrings } from '@/i18n';
 import { useCaseProgress } from '@/state/progress';
 import { colors, fonts, spacing, type } from '@/theme';
 
 type Filter = 'all' | 'available' | 'upcoming';
 
-const filters = [
-  { value: 'all', label: ui.library.filters.all },
-  { value: 'available', label: ui.library.filters.available },
-  { value: 'upcoming', label: ui.library.filters.upcoming },
-] as const;
-
 export default function CaseLibrary() {
+  const ui = useUi();
   const [filter, setFilter] = useState<Filter>('all');
+  const filters = [
+    { value: 'all', label: ui.library.filters.all },
+    { value: 'available', label: ui.library.filters.available },
+    { value: 'upcoming', label: ui.library.filters.upcoming },
+  ] as const;
   const insets = useSafeAreaInsets();
   const showAvailable = filter !== 'upcoming';
   const showUpcoming = filter !== 'available';
@@ -62,7 +62,7 @@ export default function CaseLibrary() {
               <CaseCard
                 key={upcoming.number}
                 number={upcoming.number}
-                title={upcoming.title}
+                title={ui.library.upcomingTitles[upcoming.number]}
                 art={artFor(upcoming.assetId)}
                 subtitle={ui.library.comingSoon}
                 locked
@@ -76,7 +76,8 @@ export default function CaseLibrary() {
 
 function PlayableCaseCard({ content, number }: { content: CaseContent; number: number }) {
   const { definition } = content;
-  const t = caseText(content);
+  const t = useCaseText(content);
+  const ui = useUi();
   const progress = useCaseProgress(definition);
   const presentation = definition.presentation;
   const initialEvidence = definition.evidence.filter((e) => e.initial).length;
@@ -112,7 +113,7 @@ function PlayableCaseCard({ content, number }: { content: CaseContent; number: n
       meta={meta}
       footer={
         <Button
-          label={actionLabel(progress.status)}
+          label={actionLabel(ui, progress.status)}
           icon="arrow-forward"
           onPress={() => router.push(`/case/${definition.id}`)}
         />
@@ -122,6 +123,7 @@ function PlayableCaseCard({ content, number }: { content: CaseContent; number: n
 }
 
 function StatusPill({ status }: { status: CaseProgress['status'] }) {
+  const ui = useUi();
   if (status === 'new') return null;
   return (
     <Pill
@@ -132,7 +134,7 @@ function StatusPill({ status }: { status: CaseProgress['status'] }) {
   );
 }
 
-function actionLabel(status: CaseProgress['status']): string {
+function actionLabel(ui: UiStrings, status: CaseProgress['status']): string {
   if (status === 'active') return ui.library.resume;
   if (status === 'solved') return ui.library.replay;
   return ui.library.start;
