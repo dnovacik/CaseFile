@@ -4,8 +4,8 @@ import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { Button } from '@/components/Button';
-import { caseText, getCase } from '@/content/cases';
-import { ui } from '@/i18n/en';
+import { getCase, useCaseText } from '@/content/cases';
+import { useUi } from '@/i18n';
 import { MAX_SELECTED_FACTS, useProgressStore, useSelectedFacts } from '@/state/progress';
 import { colors, fonts, minTouch, radii, spacing, type } from '@/theme';
 
@@ -15,7 +15,8 @@ import { colors, fonts, minTouch, radii, spacing, type } from '@/theme';
  */
 export function CompareTray({ caseId }: { caseId: string }) {
   const content = getCase(caseId)!;
-  const t = caseText(content);
+  const t = useCaseText(content);
+  const ui = useUi();
   const selected = useSelectedFacts(caseId);
   const clearSelection = useProgressStore((state) => state.clearSelection);
   const insets = useSafeAreaInsets();

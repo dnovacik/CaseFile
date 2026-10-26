@@ -9,17 +9,12 @@ import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context'
 import { Button } from '@/components/Button';
 import { Pill } from '@/components/Pill';
 import { SegmentedControl } from '@/components/SegmentedControl';
-import { artFor, caseText, cases, getCase, totalCases } from '@/content/cases';
-import { ui } from '@/i18n/en';
+import { artFor, cases, getCase, totalCases, useCaseText } from '@/content/cases';
+import { useUi } from '@/i18n';
 import { useCaseProgress } from '@/state/progress';
 import { colors, fonts, minTouch, radii, spacing, type } from '@/theme';
 
 type Tab = 'briefing' | 'people';
-
-const tabs = [
-  { value: 'briefing', label: ui.briefing.tabs.briefing },
-  { value: 'people', label: ui.briefing.tabs.people },
-] as const;
 
 export default function Briefing() {
   const { caseId } = useLocalSearchParams<{ caseId: string }>();
@@ -31,10 +26,15 @@ export default function Briefing() {
 function BriefingView({ caseId }: { caseId: string }) {
   const content = getCase(caseId)!;
   const { definition } = content;
-  const t = caseText(content);
+  const t = useCaseText(content);
+  const ui = useUi();
   const progress = useCaseProgress(definition);
   const insets = useSafeAreaInsets();
   const [tab, setTab] = useState<Tab>('briefing');
+  const tabs = [
+    { value: 'briefing', label: ui.briefing.tabs.briefing },
+    { value: 'people', label: ui.briefing.tabs.people },
+  ] as const;
 
   const presentation = definition.presentation;
   const number = cases.indexOf(content) + 1;
@@ -215,6 +215,7 @@ function Row({ label, value }: { label: string; value: string }) {
 }
 
 function NotFound() {
+  const ui = useUi();
   return (
     <SafeAreaView style={[styles.screen, styles.notFound]}>
       <Text style={type.body}>{ui.notFound}</Text>

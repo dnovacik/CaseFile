@@ -1,7 +1,7 @@
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { Pressable, StyleSheet, Text } from 'react-native';
 
-import { ui } from '@/i18n/en';
+import { useUi } from '@/i18n';
 import { colors, minTouch, radii, spacing, type } from '@/theme';
 
 type Props = {
@@ -12,6 +12,7 @@ type Props = {
 
 /** A selectable fact excerpt. Selection shows a check icon and border, not colour alone. */
 export function FactChip({ text, selected, onPress }: Props) {
+  const ui = useUi();
   return (
     <Pressable
       onPress={onPress}

@@ -9,9 +9,9 @@ import { BackHeader } from '@/components/BackHeader';
 import { CompareTray } from '@/components/CompareTray';
 import { EvidenceCard } from '@/components/EvidenceCard';
 import { FilterChips } from '@/components/FilterChips';
-import { artFor, caseText, getCase } from '@/content/cases';
-import { evidenceFilters, matchesFilter, type EvidenceFilter } from '@/content/evidence';
-import { ui } from '@/i18n/en';
+import { artFor, getCase, useCaseText } from '@/content/cases';
+import { matchesFilter, useEvidenceFilters, type EvidenceFilter } from '@/content/evidence';
+import { useUi } from '@/i18n';
 import { useCaseProgress, useProgressStore, useSelectedFacts } from '@/state/progress';
 import { colors, spacing, type } from '@/theme';
 
@@ -25,9 +25,11 @@ export default function EvidenceWorkspace() {
 function Workspace({ caseId }: { caseId: string }) {
   const content = getCase(caseId)!;
   const { definition } = content;
-  const t = caseText(content);
+  const t = useCaseText(content);
+  const ui = useUi();
   const progress = useCaseProgress(definition);
   const [filter, setFilter] = useState<EvidenceFilter>('all');
+  const evidenceFilters = useEvidenceFilters();
   const selected = useSelectedFacts(caseId);
   const tipDismissed = useProgressStore((state) => state.tipDismissed);
   const dismissTip = useProgressStore((state) => state.dismissTip);

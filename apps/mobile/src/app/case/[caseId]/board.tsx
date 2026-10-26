@@ -14,8 +14,8 @@ import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import { BackHeader } from '@/components/BackHeader';
 import { Button } from '@/components/Button';
-import { caseText, getCase, type CaseContent } from '@/content/cases';
-import { ui } from '@/i18n/en';
+import { getCase, useCaseText, type CaseContent } from '@/content/cases';
+import { useUi } from '@/i18n';
 import { dispatch, useCaseProgress } from '@/state/progress';
 import { colors, fonts, minTouch, radii, spacing, type } from '@/theme';
 
@@ -42,7 +42,8 @@ function sourceEvidence(def: CaseDefinition, deduction: Deduction): Id[] {
 
 function Board({ content }: { content: CaseContent }) {
   const { definition } = content;
-  const t = caseText(content);
+  const t = useCaseText(content);
+  const ui = useUi();
   const progress = useCaseProgress(definition);
   const insets = useSafeAreaInsets();
   const [revealed, setRevealed] = useState<Id[]>([]);
@@ -187,6 +188,7 @@ function Board({ content }: { content: CaseContent }) {
 type HintState = { targetId: Id; result: HintResult } | null;
 
 function HintPanel({ content }: { content: CaseContent }) {
+  const ui = useUi();
   const { definition } = content;
   const progress = useCaseProgress(definition);
   const [hint, setHint] = useState<HintState>(null);
@@ -234,7 +236,8 @@ function HintPanel({ content }: { content: CaseContent }) {
 }
 
 function HintBody({ result, content }: { result: HintResult; content: CaseContent }) {
-  const t = caseText(content);
+  const t = useCaseText(content);
+  const ui = useUi();
   if (result.code !== 'valid') return null;
   if (result.stage === 1) return <Text style={type.body}>{t(result.nudgeKey)}</Text>;
   if (result.stage === 2) {

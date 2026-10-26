@@ -7,9 +7,9 @@ import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { Button } from '@/components/Button';
-import { artFor, caseText, getCase, type CaseContent } from '@/content/cases';
+import { artFor, getCase, useCaseText, type CaseContent } from '@/content/cases';
 import { caseRating } from '@/content/rating';
-import { ui } from '@/i18n/en';
+import { useUi } from '@/i18n';
 import { useCaseProgress, useProgressStore } from '@/state/progress';
 import { colors, fonts, radii, spacing, type } from '@/theme';
 
@@ -22,7 +22,8 @@ export default function Resolution() {
 
 function ResolutionView({ content }: { content: CaseContent }) {
   const { definition } = content;
-  const t = caseText(content);
+  const t = useCaseText(content);
+  const ui = useUi();
   const progress = useCaseProgress(definition);
   const setProgress = useProgressStore((state) => state.setProgress);
   const clearSelection = useProgressStore((state) => state.clearSelection);

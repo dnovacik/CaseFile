@@ -1,5 +1,8 @@
-/** App UI strings. Case text lives with each case in content/cases/<case>/<locale>.json. */
-export const ui = {
+/**
+ * English UI strings, the source for every other language. Case text lives with each case in
+ * content/cases/<case>/<locale>.json.
+ */
+export const en = {
   appName: 'CASEFILE',
   appSubtitle: 'FIVE MINUTES',
   tagline: 'Real evidence. Real reasoning.',
@@ -14,6 +17,17 @@ export const ui = {
     evidenceItems: (count: number) => `${count} evidence items`,
     status: { new: 'New', active: 'In progress', solved: 'Solved' },
     empty: 'No cases here yet.',
+    /** Titles of planned cases that aren't authored yet, by case number. */
+    upcomingTitles: {
+      3: 'The Empty Room',
+      4: '21:37',
+      5: 'The Forged Signature',
+      6: 'Silent Alarm',
+      7: 'The Wrong Photograph',
+      8: 'Dead Air',
+      9: 'The Final Passenger',
+      10: 'Paper Trail',
+    },
   },
   difficulty: { rookie: 'Rookie', detective: 'Detective', inspector: 'Inspector' },
   briefing: {
@@ -169,7 +183,17 @@ export const ui = {
   settings: {
     title: 'Settings',
     version: (v: string) => `Version ${v}`,
+    language: 'Language',
     placeholder: 'Sound, motion and accessibility options are coming soon.',
   },
   notFound: 'This case could not be found.',
 } as const;
+
+/** Shape every translation must match: same keys and same formatter signatures as English. */
+type Strings<T> = T extends string
+  ? string
+  : T extends (...args: infer A) => string
+    ? (...args: A) => string
+    : { readonly [K in keyof T]: Strings<T[K]> };
+
+export type UiStrings = Strings<typeof en>;

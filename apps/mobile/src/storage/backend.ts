@@ -21,6 +21,10 @@ const MIGRATIONS = [
      reason TEXT NOT NULL,
      archived_at INTEGER NOT NULL
    );`,
+  `CREATE TABLE settings (
+     key TEXT PRIMARY KEY NOT NULL,
+     value TEXT NOT NULL
+   );`,
 ];
 
 function migrate(db: SQLiteDatabase) {
@@ -77,6 +81,15 @@ export function createBackend(): SaveBackend {
         );
         db.runSync('DELETE FROM case_progress WHERE case_id = ?', row.caseId);
       });
+    },
+    loadSetting: (key: string) =>
+      db.getFirstSync<{ value: string }>('SELECT value FROM settings WHERE key = ?', key)?.value,
+    saveSetting: (key: string, value: string) => {
+      db.runSync(
+        'INSERT INTO settings (key, value) VALUES (?, ?) ON CONFLICT(key) DO UPDATE SET value = excluded.value',
+        key,
+        value,
+      );
     },
   };
 }

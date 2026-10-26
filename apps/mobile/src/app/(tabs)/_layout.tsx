@@ -2,7 +2,7 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import { Tabs } from 'expo-router/js-tabs';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { ui } from '@/i18n/en';
+import { useUi } from '@/i18n';
 import { colors, fonts } from '@/theme';
 
 /** Tall enough for 13 pt labels; the default 49 pt bar is sized for 10 pt labels. */
@@ -11,6 +11,7 @@ const TAB_BAR_HEIGHT = 60;
 export default function TabsLayout() {
   // A custom height replaces the navigator's own inset handling, so add the inset back.
   const insets = useSafeAreaInsets();
+  const ui = useUi();
   return (
     <Tabs
       screenOptions={{

@@ -5,7 +5,7 @@ import { Image } from 'expo-image';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 
 import { evidenceIcon } from '@/content/evidence';
-import { ui } from '@/i18n/en';
+import { useUi } from '@/i18n';
 import { colors, fonts, radii, spacing, type } from '@/theme';
 
 type Props = {
@@ -26,6 +26,7 @@ export function EvidenceCard({
   selectedCount = 0,
   onPress,
 }: Props) {
+  const ui = useUi();
   const status = inspected ? ui.evidence.status.inspected : ui.evidence.status.new;
   const typeLabel = ui.evidence.types[evidence.type];
   return (

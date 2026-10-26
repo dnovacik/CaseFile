@@ -2,6 +2,7 @@ import type { SaveBackend, SaveRow } from './types';
 
 const SAVES = 'casefile.saves.v1';
 const ARCHIVE = 'casefile.archive.v1';
+const SETTINGS = 'casefile.settings.v1';
 
 function read<T>(key: string, fallback: T): T {
   try {
@@ -30,5 +31,8 @@ export function createBackend(): SaveBackend {
       const { [row.caseId]: _archived, ...rest } = read<Record<string, SaveRow>>(SAVES, {});
       write(SAVES, rest);
     },
+    loadSetting: (key) => read<Record<string, string>>(SETTINGS, {})[key],
+    saveSetting: (key, value) =>
+      write(SETTINGS, { ...read<Record<string, string>>(SETTINGS, {}), [key]: value }),
   };
 }
