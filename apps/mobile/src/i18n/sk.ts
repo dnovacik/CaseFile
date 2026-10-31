@@ -24,7 +24,6 @@ export const sk: UiStrings = {
     status: { new: 'Nový', active: 'Rozpracovaný', solved: 'Vyriešený' },
     empty: 'Zatiaľ tu nie sú žiadne prípady.',
     upcomingTitles: {
-      3: 'Prázdna izba',
       4: '21:37',
       5: 'Sfalšovaný podpis',
       6: 'Tichý alarm',

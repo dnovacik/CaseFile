@@ -1,0 +1,582 @@
+{
+  "schemaVersion": 1,
+  "id": "case_003",
+  "contentVersion": 1,
+  "titleKey": "c003.title",
+  "presentation": {
+    "difficulty": "rookie",
+    "estimatedMinutes": {
+      "min": 9,
+      "max": 12
+    },
+    "cardAssetId": "case-03-card",
+    "briefing": {
+      "locationKey": "c003.briefing.location",
+      "dateKey": "c003.briefing.date",
+      "summaryKey": "c003.briefing.summary",
+      "objectiveKeys": [
+        "c003.briefing.objective1",
+        "c003.briefing.objective2",
+        "c003.briefing.objective3"
+      ],
+      "assetId": "case-03-briefing"
+    },
+    "resolutionKey": "c003.resolution"
+  },
+  "people": [
+    {
+      "id": "P_JULIAN",
+      "nameKey": "c003.person.julian.name",
+      "roleKey": "c003.person.julian.role",
+      "assetId": "case-03-cast-julian"
+    },
+    {
+      "id": "P_PRIYA",
+      "nameKey": "c003.person.priya.name",
+      "roleKey": "c003.person.priya.role",
+      "assetId": "case-03-cast-priya"
+    },
+    {
+      "id": "P_GRACE",
+      "nameKey": "c003.person.grace.name",
+      "roleKey": "c003.person.grace.role",
+      "assetId": "case-03-cast-grace"
+    },
+    {
+      "id": "P_THEO",
+      "nameKey": "c003.person.theo.name",
+      "roleKey": "c003.person.theo.role",
+      "assetId": "case-03-cast-theo"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "E01",
+      "type": "testimony",
+      "titleKey": "c003.e01.title",
+      "bodyKey": "c003.e01.body",
+      "initial": true,
+      "factIds": ["F01A", "F01B"],
+      "assetIds": ["case-03-cast-priya"]
+    },
+    {
+      "id": "E02",
+      "type": "testimony",
+      "titleKey": "c003.e02.title",
+      "bodyKey": "c003.e02.body",
+      "initial": true,
+      "factIds": ["F02A", "F02B"],
+      "assetIds": ["case-03-cast-grace"]
+    },
+    {
+      "id": "E03",
+      "type": "testimony",
+      "titleKey": "c003.e03.title",
+      "bodyKey": "c003.e03.body",
+      "initial": true,
+      "factIds": ["F03A", "F03B"],
+      "assetIds": ["case-03-cast-theo"]
+    },
+    {
+      "id": "E04",
+      "type": "digital",
+      "titleKey": "c003.e04.title",
+      "bodyKey": "c003.e04.body",
+      "initial": true,
+      "factIds": ["F04A", "F04B", "F04C"]
+    },
+    {
+      "id": "E05",
+      "type": "digital",
+      "titleKey": "c003.e05.title",
+      "bodyKey": "c003.e05.body",
+      "initial": true,
+      "factIds": ["F05A", "F05B"]
+    },
+    {
+      "id": "E06",
+      "type": "photograph",
+      "titleKey": "c003.e06.title",
+      "bodyKey": "c003.e06.body",
+      "initial": true,
+      "factIds": ["F06A", "F06B", "F06C"],
+      "assetIds": ["case-03-e06"]
+    },
+    {
+      "id": "E07",
+      "type": "document",
+      "titleKey": "c003.e07.title",
+      "bodyKey": "c003.e07.body",
+      "initial": true,
+      "factIds": ["F07A", "F07B", "F07C"],
+      "assetIds": ["case-03-e07"]
+    },
+    {
+      "id": "E08",
+      "type": "digital",
+      "titleKey": "c003.e08.title",
+      "bodyKey": "c003.e08.body",
+      "initial": true,
+      "factIds": ["F08A", "F08B", "F08C", "F08D", "F08E"],
+      "assetIds": ["case-03-e08"]
+    },
+    {
+      "id": "E09",
+      "type": "digital",
+      "titleKey": "c003.e09.title",
+      "bodyKey": "c003.e09.body",
+      "initial": true,
+      "factIds": ["F09A", "F09B"]
+    },
+    {
+      "id": "E10",
+      "type": "document",
+      "titleKey": "c003.e10.title",
+      "bodyKey": "c003.e10.body",
+      "initial": true,
+      "factIds": ["F10A", "F10B", "F10C"],
+      "assetIds": ["case-03-e10"]
+    },
+    {
+      "id": "E11",
+      "type": "document",
+      "titleKey": "c003.e11.title",
+      "bodyKey": "c003.e11.body",
+      "initial": true,
+      "factIds": ["F11A"],
+      "assetIds": ["case-03-e11"]
+    },
+    {
+      "id": "E12",
+      "type": "digital",
+      "titleKey": "c003.e12.title",
+      "bodyKey": "c003.e12.body",
+      "initial": false,
+      "factIds": ["F12A", "F12B"]
+    },
+    {
+      "id": "E13",
+      "type": "photograph",
+      "titleKey": "c003.e13.title",
+      "bodyKey": "c003.e13.body",
+      "initial": false,
+      "factIds": ["F13A", "F13B", "F13C"],
+      "assetIds": ["case-03-e13"]
+    }
+  ],
+  "facts": [
+    {
+      "id": "F01A",
+      "evidenceId": "E01",
+      "textKey": "c003.f01a"
+    },
+    {
+      "id": "F01B",
+      "evidenceId": "E01",
+      "textKey": "c003.f01b"
+    },
+    {
+      "id": "F02A",
+      "evidenceId": "E02",
+      "textKey": "c003.f02a"
+    },
+    {
+      "id": "F02B",
+      "evidenceId": "E02",
+      "textKey": "c003.f02b"
+    },
+    {
+      "id": "F03A",
+      "evidenceId": "E03",
+      "textKey": "c003.f03a"
+    },
+    {
+      "id": "F03B",
+      "evidenceId": "E03",
+      "textKey": "c003.f03b"
+    },
+    {
+      "id": "F04A",
+      "evidenceId": "E04",
+      "textKey": "c003.f04a"
+    },
+    {
+      "id": "F04B",
+      "evidenceId": "E04",
+      "textKey": "c003.f04b"
+    },
+    {
+      "id": "F04C",
+      "evidenceId": "E04",
+      "textKey": "c003.f04c"
+    },
+    {
+      "id": "F05A",
+      "evidenceId": "E05",
+      "textKey": "c003.f05a"
+    },
+    {
+      "id": "F05B",
+      "evidenceId": "E05",
+      "textKey": "c003.f05b"
+    },
+    {
+      "id": "F06A",
+      "evidenceId": "E06",
+      "textKey": "c003.f06a"
+    },
+    {
+      "id": "F06B",
+      "evidenceId": "E06",
+      "textKey": "c003.f06b"
+    },
+    {
+      "id": "F06C",
+      "evidenceId": "E06",
+      "textKey": "c003.f06c"
+    },
+    {
+      "id": "F07A",
+      "evidenceId": "E07",
+      "textKey": "c003.f07a"
+    },
+    {
+      "id": "F07B",
+      "evidenceId": "E07",
+      "textKey": "c003.f07b"
+    },
+    {
+      "id": "F07C",
+      "evidenceId": "E07",
+      "textKey": "c003.f07c"
+    },
+    {
+      "id": "F08A",
+      "evidenceId": "E08",
+      "textKey": "c003.f08a"
+    },
+    {
+      "id": "F08B",
+      "evidenceId": "E08",
+      "textKey": "c003.f08b"
+    },
+    {
+      "id": "F08C",
+      "evidenceId": "E08",
+      "textKey": "c003.f08c"
+    },
+    {
+      "id": "F08D",
+      "evidenceId": "E08",
+      "textKey": "c003.f08d"
+    },
+    {
+      "id": "F08E",
+      "evidenceId": "E08",
+      "textKey": "c003.f08e"
+    },
+    {
+      "id": "F09A",
+      "evidenceId": "E09",
+      "textKey": "c003.f09a"
+    },
+    {
+      "id": "F09B",
+      "evidenceId": "E09",
+      "textKey": "c003.f09b"
+    },
+    {
+      "id": "F10A",
+      "evidenceId": "E10",
+      "textKey": "c003.f10a"
+    },
+    {
+      "id": "F10B",
+      "evidenceId": "E10",
+      "textKey": "c003.f10b"
+    },
+    {
+      "id": "F10C",
+      "evidenceId": "E10",
+      "textKey": "c003.f10c"
+    },
+    {
+      "id": "F11A",
+      "evidenceId": "E11",
+      "textKey": "c003.f11a"
+    },
+    {
+      "id": "F12A",
+      "evidenceId": "E12",
+      "textKey": "c003.f12a"
+    },
+    {
+      "id": "F12B",
+      "evidenceId": "E12",
+      "textKey": "c003.f12b"
+    },
+    {
+      "id": "F13A",
+      "evidenceId": "E13",
+      "textKey": "c003.f13a"
+    },
+    {
+      "id": "F13B",
+      "evidenceId": "E13",
+      "textKey": "c003.f13b"
+    },
+    {
+      "id": "F13C",
+      "evidenceId": "E13",
+      "textKey": "c003.f13c"
+    }
+  ],
+  "relationships": [
+    {
+      "id": "R01",
+      "factIds": ["F08A", "F04A"],
+      "type": "same_event"
+    },
+    {
+      "id": "R02",
+      "factIds": ["F08C", "F09A"],
+      "type": "supports"
+    },
+    {
+      "id": "R03",
+      "factIds": ["F02B", "F07B"],
+      "type": "contradicts"
+    },
+    {
+      "id": "R04",
+      "factIds": ["F03A", "F05B"],
+      "type": "contradicts"
+    },
+    {
+      "id": "R05",
+      "factIds": ["F04B", "F10A"],
+      "type": "supports"
+    },
+    {
+      "id": "R06",
+      "factIds": ["F12A", "F13A"],
+      "type": "same_event"
+    },
+    {
+      "id": "R07",
+      "factIds": ["F08B", "F13B"],
+      "type": "supports"
+    },
+    {
+      "id": "R08",
+      "factIds": ["F06C", "F08B"],
+      "type": "supports"
+    },
+    {
+      "id": "R09",
+      "factIds": ["F05A", "F01B"],
+      "type": "supports"
+    },
+    {
+      "id": "R10",
+      "factIds": ["F03B", "F12A"],
+      "type": "contradicts"
+    }
+  ],
+  "deductions": [
+    {
+      "id": "D01",
+      "titleKey": "c003.d01.title",
+      "descriptionKey": "c003.d01.description",
+      "requires": {
+        "relationshipIds": ["R01"]
+      },
+      "mandatory": true
+    },
+    {
+      "id": "D02",
+      "titleKey": "c003.d02.title",
+      "descriptionKey": "c003.d02.description",
+      "requires": {
+        "relationshipIds": ["R02"],
+        "deductionIds": ["D01"]
+      },
+      "mandatory": true
+    },
+    {
+      "id": "D03",
+      "titleKey": "c003.d03.title",
+      "descriptionKey": "c003.d03.description",
+      "requires": {
+        "relationshipIds": ["R03"]
+      },
+      "mandatory": true
+    },
+    {
+      "id": "D04",
+      "titleKey": "c003.d04.title",
+      "descriptionKey": "c003.d04.description",
+      "requires": {
+        "relationshipIds": ["R04"]
+      },
+      "mandatory": true
+    },
+    {
+      "id": "D05",
+      "titleKey": "c003.d05.title",
+      "descriptionKey": "c003.d05.description",
+      "requires": {
+        "relationshipIds": ["R05"]
+      },
+      "mandatory": true
+    },
+    {
+      "id": "D06",
+      "titleKey": "c003.d06.title",
+      "descriptionKey": "c003.d06.description",
+      "requires": {
+        "relationshipIds": ["R06"],
+        "actionIds": ["A01"]
+      },
+      "mandatory": true
+    },
+    {
+      "id": "D07",
+      "titleKey": "c003.d07.title",
+      "descriptionKey": "c003.d07.description",
+      "requires": {
+        "relationshipIds": ["R07"],
+        "deductionIds": ["D06"]
+      },
+      "mandatory": true
+    },
+    {
+      "id": "D08",
+      "titleKey": "c003.d08.title",
+      "descriptionKey": "c003.d08.description",
+      "requires": {
+        "relationshipIds": ["R08"]
+      },
+      "mandatory": false
+    },
+    {
+      "id": "D09",
+      "titleKey": "c003.d09.title",
+      "descriptionKey": "c003.d09.description",
+      "requires": {
+        "relationshipIds": ["R09"]
+      },
+      "mandatory": false
+    },
+    {
+      "id": "D10",
+      "titleKey": "c003.d10.title",
+      "descriptionKey": "c003.d10.description",
+      "requires": {
+        "relationshipIds": ["R10"]
+      },
+      "mandatory": false
+    }
+  ],
+  "actions": [
+    {
+      "id": "A01",
+      "titleKey": "c003.a01.title",
+      "justificationKey": "c003.a01.justification",
+      "requires": {
+        "deductionIds": ["D02", "D03", "D04", "D05"]
+      },
+      "revealsEvidenceIds": ["E12", "E13"]
+    }
+  ],
+  "conclusions": [
+    {
+      "id": "C01",
+      "questionKey": "c003.c01.question",
+      "correctChoiceId": "service_lift",
+      "choices": [
+        {
+          "id": "service_lift",
+          "labelKey": "c003.c01.service_lift"
+        },
+        {
+          "id": "lobby",
+          "labelKey": "c003.c01.lobby"
+        },
+        {
+          "id": "fire_exit",
+          "labelKey": "c003.c01.fire_exit"
+        },
+        {
+          "id": "still_inside",
+          "labelKey": "c003.c01.still_inside"
+        }
+      ],
+      "requiresDeductionIds": ["D02", "D03", "D06", "D07"],
+      "acceptedProofSets": [["E08", "E09", "E13"]],
+      "supportingProofIds": ["E01", "E04", "E06", "E07", "E12"]
+    },
+    {
+      "id": "C02",
+      "questionKey": "c003.c02.question",
+      "correctChoiceId": "theo",
+      "choices": [
+        {
+          "id": "priya",
+          "labelKey": "c003.person.priya.name",
+          "personId": "P_PRIYA"
+        },
+        {
+          "id": "grace",
+          "labelKey": "c003.person.grace.name",
+          "personId": "P_GRACE"
+        },
+        {
+          "id": "theo",
+          "labelKey": "c003.person.theo.name",
+          "personId": "P_THEO"
+        },
+        {
+          "id": "guest",
+          "labelKey": "c003.c02.guest"
+        }
+      ],
+      "requiresDeductionIds": ["D04", "D05", "D06"],
+      "acceptedProofSets": [
+        ["E10", "E12", "E13"],
+        ["E04", "E10", "E13"]
+      ],
+      "supportingProofIds": ["E02", "E03", "E05"]
+    }
+  ],
+  "hints": [
+    {
+      "relationshipId": "R01",
+      "nudgeKey": "c003.hint.r01"
+    },
+    {
+      "relationshipId": "R02",
+      "nudgeKey": "c003.hint.r02"
+    },
+    {
+      "relationshipId": "R03",
+      "nudgeKey": "c003.hint.r03"
+    },
+    {
+      "relationshipId": "R04",
+      "nudgeKey": "c003.hint.r04"
+    },
+    {
+      "relationshipId": "R05",
+      "nudgeKey": "c003.hint.r05"
+    },
+    {
+      "relationshipId": "R06",
+      "nudgeKey": "c003.hint.r06"
+    },
+    {
+      "relationshipId": "R07",
+      "nudgeKey": "c003.hint.r07"
+    }
+  ]
+}
