@@ -7,7 +7,7 @@ The Casefile content API serves the live case-pack manifest (design: `docs/super
 | Method | Path | Response |
 |---|---|---|
 | GET | `/v1/health` | `{ ok: true }` |
-| GET | `/v1/content/manifest` | `{ serverTime, packs }`: the published packs (`<CONTENT_DIR>/manifest.json`) and the server's clock, which decides pack release dates. `Cache-Control: no-store`. A missing or damaged manifest gives `packs: []`, never an error. |
+| GET | `/v1/content/manifest` | `{ serverTime, packs }`: the published packs (`<CONTENT_DIR>/manifest.json`), leaving out any whose `startsAt` is still ahead, and the server's clock, which decides pack release dates. `Cache-Control: no-store`. A missing or damaged manifest gives `packs: []`, never an error. |
 | GET | `/content/<id>/<version>/<file>` | Pack files, served by nginx from `/var/www/casefile-content/`. Immutable. |
 
 The app uses `https://casefile-api.cognision.eu` unless it's built with `EXPO_PUBLIC_API_URL` (e.g. `http://192.168.0.200:3001` for a local server).

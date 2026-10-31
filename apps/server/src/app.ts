@@ -19,7 +19,8 @@ export function buildApp(opts: { contentDir: string; now?: () => Date }): Fastif
 
   app.get('/v1/content/manifest', async (_req, reply): Promise<ContentManifest> => {
     reply.header('Cache-Control', 'no-store');
-    const serverTime = now().toISOString();
+    const at = now();
+    const serverTime = at.toISOString();
     let raw: string;
     try {
       raw = readFileSync(manifestFile, 'utf8');
@@ -27,7 +28,13 @@ export function buildApp(opts: { contentDir: string; now?: () => Date }): Fastif
       return { serverTime, packs: [] };
     }
     try {
-      return { serverTime, packs: ManifestEntrySchema.array().parse(JSON.parse(raw)) };
+      const packs = ManifestEntrySchema.array().parse(JSON.parse(raw));
+      // A scheduled pack isn't listed before its release, so no phone holds it early whatever
+      // its clock says. Phones still gate startsAt themselves with the server offset.
+      return {
+        serverTime,
+        packs: packs.filter((p) => !p.startsAt || Date.parse(p.startsAt) <= at.getTime()),
+      };
     } catch (error) {
       app.log.warn(`unreadable ${manifestFile}: ${String(error)}`);
       return { serverTime, packs: [] };

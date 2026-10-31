@@ -42,6 +42,15 @@ describe('content API', () => {
     expect(res.json()).toEqual({ serverTime: '2026-10-31T12:00:00.000Z', packs: [entry] });
   });
 
+  it('holds a scheduled pack back until its release time, so phones never have it early', async () => {
+    const later = { ...entry, id: 'case-005', caseNumber: 5, startsAt: '2026-11-01T09:00:00Z' };
+    const released = { ...entry, startsAt: '2026-10-31T09:00:00Z' };
+    const res = await app(JSON.stringify([released, later])).inject({
+      url: '/v1/content/manifest',
+    });
+    expect(res.json().packs.map((p: { id: string }) => p.id)).toEqual(['case-004']);
+  });
+
   it('serves no packs, rather than an error, when the manifest file is damaged', async () => {
     const res = await app('{not json').inject({ url: '/v1/content/manifest' });
     expect(res.statusCode).toBe(200);
