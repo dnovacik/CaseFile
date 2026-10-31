@@ -47,3 +47,10 @@ content/packs/<id>/          e.g. content/packs/case-004/
 Publishing, by the author only, after the pack's PR is merged: `bash scripts/publish-content.sh` (see `docs/server.md`). Phones pick a pack up on their next launch or return to the app, never while a case is open.
 
 To try a pack on test builds first, add `publish.json` with `{ "audience": "playtest" }` and use a build made with `EXPO_PUBLIC_PLAYTEST=1`. Then delete `publish.json`, raise `version` and publish again for everyone.
+
+## Trying a pack against a local server
+
+1. `node scripts/build-content.mjs`, then `npm run build --workspace=@casefile/server` and `CONTENT_DIR=dist/content PORT=3001 node apps/server/dist/main.js`.
+2. Serve the pack files too: put `dist/content` behind the same host under `/content/` (nginx locally, or any static server on the same port via a proxy).
+3. Start a dev build with `EXPO_PUBLIC_API_URL=http://<your LAN IP>:3001` (and `EXPO_PUBLIC_PLAYTEST=1` for playtest packs).
+4. Send the app to the background and back while on the library: the case appears. Packs never switch while a case is open.
