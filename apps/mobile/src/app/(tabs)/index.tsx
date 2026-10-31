@@ -10,7 +10,13 @@ import { Button } from '@/components/Button';
 import { CaseCard } from '@/components/CaseCard';
 import { Pill } from '@/components/Pill';
 import { SegmentedControl } from '@/components/SegmentedControl';
-import { artFor, cases, upcomingCases, useCaseText, type CaseContent } from '@/content/cases';
+import {
+  artFor,
+  useCases,
+  useCaseText,
+  useUpcomingCases,
+  type RegisteredCase,
+} from '@/content/cases';
 import { useUi, type UiStrings } from '@/i18n';
 import { useCaseProgress } from '@/state/progress';
 import { colors, fonts, spacing, type } from '@/theme';
@@ -28,6 +34,8 @@ export default function CaseLibrary() {
   const insets = useSafeAreaInsets();
   const showAvailable = filter !== 'upcoming';
   const showUpcoming = filter !== 'available';
+  const cases = useCases();
+  const upcomingCases = useUpcomingCases();
 
   return (
     <ScrollView style={styles.screen} contentContainerStyle={{ paddingBottom: spacing.xxl }}>
@@ -53,8 +61,8 @@ export default function CaseLibrary() {
       <View style={styles.content}>
         <SegmentedControl options={filters} value={filter} onChange={setFilter} />
         {showAvailable
-          ? cases.map((content, index) => (
-              <PlayableCaseCard key={content.definition.id} content={content} number={index + 1} />
+          ? cases.map((content) => (
+              <PlayableCaseCard key={content.definition.id} content={content} />
             ))
           : null}
         {showUpcoming
@@ -74,7 +82,7 @@ export default function CaseLibrary() {
   );
 }
 
-function PlayableCaseCard({ content, number }: { content: CaseContent; number: number }) {
+function PlayableCaseCard({ content }: { content: RegisteredCase }) {
   const { definition } = content;
   const t = useCaseText(content);
   const ui = useUi();
@@ -99,7 +107,7 @@ function PlayableCaseCard({ content, number }: { content: CaseContent; number: n
 
   return (
     <CaseCard
-      number={number}
+      number={content.number}
       title={t(definition.titleKey)}
       subtitle={presentation ? t(presentation.briefing.locationKey) : undefined}
       art={artFor(presentation?.cardAssetId)}

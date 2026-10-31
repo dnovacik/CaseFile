@@ -1,14 +1,18 @@
-import { cases, getCase, type CaseContent } from '@casefile/content';
+import type { CaseContent } from '@casefile/content';
 import { caseArt } from '@casefile/content/art';
 import type { ImageSource } from 'expo-image';
 
 import { useLocale } from '@/i18n';
 
-export { cases, getCase, type CaseContent };
+import { getCase, getCases, useCases, useRegistry, type RegisteredCase } from './registry';
 
-/** Image for an asset ID from case content, if it is bundled. */
+export { getCase, getCases, useCases, type CaseContent, type RegisteredCase };
+
+/** Image for an asset ID: art from an active pack first, then art bundled with the app. */
 export function artFor(assetId: string | undefined): ImageSource | undefined {
   if (assetId === undefined) return undefined;
+  const uri = useRegistry.getState().media[assetId];
+  if (uri) return { uri };
   return (caseArt as Record<string, ImageSource>)[assetId];
 }
 
@@ -36,4 +40,17 @@ export const upcomingCases = [
   { number: 10, assetId: 'case-10-card' },
 ] as const;
 
-export const totalCases = cases.length + upcomingCases.length;
+/** Upcoming cases whose number no playable case has taken yet. */
+function remainingUpcoming(cases: RegisteredCase[]) {
+  return upcomingCases.filter((u) => !cases.some((c) => c.number === u.number));
+}
+
+export function useUpcomingCases() {
+  return remainingUpcoming(useCases());
+}
+
+/** Cases in the collection: playable ones plus those still coming. */
+export function useTotalCases(): number {
+  const cases = useCases();
+  return cases.length + remainingUpcoming(cases).length;
+}

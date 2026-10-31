@@ -1,6 +1,6 @@
 import { serializeProgress } from '@casefile/engine';
 
-import { cases } from '@/content/cases';
+import { getCases, useRegistry } from '@/content/registry';
 import { isLocale, useLocaleStore } from '@/i18n';
 import {
   isMotionPreference,
@@ -11,7 +11,8 @@ import {
 import { useProgressStore } from '@/state/progress';
 
 import { createBackend } from './backend';
-import { hydrate } from './hydrate';
+import { hydrate, staleCaseIds } from './hydrate';
+import type { SaveRow } from './types';
 
 let started = false;
 
@@ -48,16 +49,46 @@ export function startPersistence() {
     if (state.motion !== previous.motion) backend.saveSetting(MOTION_SETTING, state.motion);
   });
 
-  const { progress, archive } = hydrate(
-    cases.map((c) => c.definition),
-    backend.loadAll(),
-  );
-  for (const { row, reason } of archive) {
-    backend.archive(row, reason);
-    console.warn(`[storage] Archived save for ${row.caseId} (${reason}); starting it fresh.`);
-  }
-  const byCase = Object.fromEntries(progress.map((p) => [p.caseId, p]));
-  useProgressStore.setState({ byCase });
+  // Saves of cases this build doesn't know yet (a pack that hasn't switched on) wait here, untouched.
+  let pending: SaveRow[] = backend.loadAll();
+
+  /** Bring saved progress in line with the active cases; runs at start and whenever packs change. */
+  const applyCases = () => {
+    const definitions = getCases().map((c) => c.definition);
+    const byCase = { ...useProgressStore.getState().byCase };
+
+    // A pack changed a case's structure: archive the old progress rather than reuse it.
+    for (const caseId of staleCaseIds(byCase, definitions)) {
+      const old = byCase[caseId]!;
+      backend.archive(
+        {
+          caseId,
+          contentVersion: old.contentVersion,
+          data: serializeProgress(old),
+          updatedAt: Date.now(),
+        },
+        'content_version_mismatch',
+      );
+      delete byCase[caseId];
+      console.warn(`[storage] Archived progress for ${caseId}: the case was updated.`);
+    }
+
+    const known = new Set(definitions.map((d) => d.id));
+    const ready = pending.filter((row) => known.has(row.caseId));
+    pending = pending.filter((row) => !known.has(row.caseId));
+    const { progress, archive } = hydrate(definitions, ready);
+    for (const { row, reason } of archive) {
+      backend.archive(row, reason);
+      console.warn(`[storage] Archived save for ${row.caseId} (${reason}); starting it fresh.`);
+    }
+    for (const p of progress) byCase[p.caseId] = p;
+    useProgressStore.setState({ byCase });
+  };
+
+  applyCases();
+  useRegistry.subscribe((state, previous) => {
+    if (state.cases !== previous.cases) applyCases();
+  });
 
   // Every engine command produces a new progress object, so a reference check finds what changed.
   useProgressStore.subscribe((state, previous) => {

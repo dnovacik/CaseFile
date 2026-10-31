@@ -2,7 +2,7 @@ import { createProgress, inspectEvidence, serializeProgress } from '@casefile/en
 import { getCase } from '@casefile/content';
 import { describe, expect, it } from 'vitest';
 
-import { hydrate } from './hydrate';
+import { hydrate, staleCaseIds } from './hydrate';
 import type { SaveRow } from './types';
 
 const def = getCase('case_001')!.definition;
@@ -42,5 +42,19 @@ describe('hydrate', () => {
   it('leaves saves for cases that are not bundled untouched', () => {
     const row = rowFor('{}', { caseId: 'case_999' });
     expect(hydrate([def], [row])).toEqual({ progress: [], archive: [] });
+  });
+});
+
+describe('staleCaseIds', () => {
+  const progress = createProgress(def);
+
+  it('finds progress saved against another content version of its case', () => {
+    const updated = { ...def, contentVersion: def.contentVersion + 1 };
+    expect(staleCaseIds({ [def.id]: progress }, [updated])).toEqual([def.id]);
+  });
+
+  it('keeps progress that matches its case, and progress of cases it was not given', () => {
+    expect(staleCaseIds({ [def.id]: progress }, [def])).toEqual([]);
+    expect(staleCaseIds({ case_999: { ...progress, caseId: 'case_999' } }, [def])).toEqual([]);
   });
 });
