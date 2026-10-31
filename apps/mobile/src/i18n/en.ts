@@ -184,7 +184,12 @@ export const en = {
     title: 'Settings',
     version: (v: string) => `Version ${v}`,
     language: 'Language',
-    placeholder: 'Sound, motion and accessibility options are coming soon.',
+    sound: 'Sound effects',
+    soundOptions: { off: 'Off', on: 'On' },
+    soundHint: 'Subtle cues when a link holds, a lead falls through or a case closes.',
+    motion: 'Motion',
+    motionOptions: { system: 'System', reduced: 'Reduced', full: 'Full' },
+    motionHint: 'Reduced swaps sliding screen transitions for a gentle fade.',
   },
   notFound: 'This case could not be found.',
 } as const;

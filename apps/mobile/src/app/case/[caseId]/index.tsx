@@ -140,7 +140,9 @@ function BriefingView({ caseId }: { caseId: string }) {
                 {presentation.briefing.objectiveKeys.map((key, index) => (
                   <View key={key} style={styles.objective}>
                     <View style={styles.objectiveNumber}>
-                      <Text style={styles.objectiveNumberText}>{index + 1}</Text>
+                      <Text style={styles.objectiveNumberText} maxFontSizeMultiplier={1.4}>
+                        {index + 1}
+                      </Text>
                     </View>
                     <Text style={[type.body, styles.objectiveText]}>{t(key)}</Text>
                   </View>
@@ -230,7 +232,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.abyss,
   },
   hero: {
-    height: 300,
+    minHeight: 300,
   },
   heroBar: {
     flexDirection: 'row',

@@ -3,14 +3,16 @@ import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { colors, fonts, minTouch, radii, spacing } from '@/theme';
 
 type Props<T extends string> = {
+  /** Names the group for screen readers, e.g. "Language". */
+  label?: string;
   options: readonly { value: T; label: string }[];
   value: T;
   onChange: (value: T) => void;
 };
 
-export function SegmentedControl<T extends string>({ options, value, onChange }: Props<T>) {
+export function SegmentedControl<T extends string>({ label, options, value, onChange }: Props<T>) {
   return (
-    <View style={styles.row} accessibilityRole="tablist">
+    <View style={styles.row} accessibilityRole="tablist" accessibilityLabel={label}>
       {options.map((option) => {
         const selected = option.value === value;
         return (

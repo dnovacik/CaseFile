@@ -9,6 +9,7 @@ import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
 import { useEffect } from 'react';
 
+import { useReduceMotion } from '@/state/motion';
 import { startPersistence } from '@/storage/persistence';
 import { colors } from '@/theme';
 
@@ -32,6 +33,7 @@ export default function RootLayout() {
     Inter_600SemiBold,
   });
   const ready = loaded || error !== null;
+  const reduceMotion = useReduceMotion();
 
   useEffect(() => {
     if (ready) void SplashScreen.hideAsync();
@@ -46,9 +48,14 @@ export default function RootLayout() {
         screenOptions={{
           headerShown: false,
           contentStyle: { backgroundColor: colors.abyss },
+          // Reduced motion swaps slides for a cross-fade, which doesn't move anything on screen.
+          animation: reduceMotion ? 'fade' : 'default',
         }}
       >
-        <Stack.Screen name="case/[caseId]/compare" options={{ presentation: 'modal' }} />
+        <Stack.Screen
+          name="case/[caseId]/compare"
+          options={{ presentation: 'modal', animation: reduceMotion ? 'fade' : 'default' }}
+        />
       </Stack>
     </>
   );

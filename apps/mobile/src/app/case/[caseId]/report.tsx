@@ -6,6 +6,7 @@ import { useState } from 'react';
 import { AccessibilityInfo, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 
+import { playSound } from '@/audio/sounds';
 import { BackHeader } from '@/components/BackHeader';
 import { Button } from '@/components/Button';
 import { artFor, getCase, useCaseText, type CaseContent } from '@/content/cases';
@@ -43,9 +44,11 @@ function Report({ content }: { content: CaseContent }) {
   const submit = () => {
     const result = dispatch(definition, { type: 'submitReport', answers, proofIds });
     if (result.code === 'valid') {
+      playSound('solved');
       router.replace(`/case/${definition.id}/resolution`);
       return;
     }
+    playSound('miss');
     setFeedback(result.code);
     AccessibilityInfo.announceForAccessibility(ui.report.results[result.code]);
   };
@@ -159,7 +162,9 @@ function StepHeader({ number, title }: { number: number; title: string }) {
   return (
     <View style={styles.stepHeader}>
       <View style={styles.stepNumber}>
-        <Text style={styles.stepNumberText}>{number}</Text>
+        <Text style={styles.stepNumberText} maxFontSizeMultiplier={1.3}>
+          {number}
+        </Text>
       </View>
       <Text style={[type.heading, styles.flex]} accessibilityRole="header">
         {title}
