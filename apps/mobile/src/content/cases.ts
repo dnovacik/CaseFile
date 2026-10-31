@@ -26,7 +26,6 @@ export function useCaseText(content: CaseContent) {
  * library as "coming soon" with their card art; titles live in the UI strings.
  */
 export const upcomingCases = [
-  { number: 3, assetId: 'case-03-card' },
   { number: 4, assetId: 'case-04-card' },
   { number: 5, assetId: 'case-05-card' },
   { number: 6, assetId: 'case-06-card' },

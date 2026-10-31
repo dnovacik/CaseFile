@@ -6,6 +6,9 @@ import case001Sk from './cases/case-001/sk.json';
 import case002 from './cases/case-002/case.json';
 import case002En from './cases/case-002/en.json';
 import case002Sk from './cases/case-002/sk.json';
+import case003 from './cases/case-003/case.json';
+import case003En from './cases/case-003/en.json';
+import case003Sk from './cases/case-003/sk.json';
 
 /** Languages every bundled case is written in. English is the source and the fallback. */
 export const locales = ['en', 'sk'] as const;
@@ -21,6 +24,7 @@ export type CaseContent = {
 export const cases: CaseContent[] = [
   { definition: caseDefinitionSchema.parse(case001), strings: { en: case001En, sk: case001Sk } },
   { definition: caseDefinitionSchema.parse(case002), strings: { en: case002En, sk: case002Sk } },
+  { definition: caseDefinitionSchema.parse(case003), strings: { en: case003En, sk: case003Sk } },
 ];
 
 export function getCase(id: string): CaseContent | undefined {

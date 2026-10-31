@@ -19,7 +19,6 @@ export const en = {
     empty: 'No cases here yet.',
     /** Titles of planned cases that aren't authored yet, by case number. */
     upcomingTitles: {
-      3: 'The Empty Room',
       4: '21:37',
       5: 'The Forged Signature',
       6: 'Silent Alarm',
