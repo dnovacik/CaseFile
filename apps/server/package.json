@@ -1,0 +1,21 @@
+{
+  "name": "@casefile/server",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Casefile content API: serves the live case-pack manifest and the server clock.",
+  "type": "module",
+  "scripts": {
+    "build": "tsup",
+    "start": "node --enable-source-maps dist/main.js",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@casefile/content": "*",
+    "fastify": "^5.12.7"
+  },
+  "devDependencies": {
+    "@types/node": "^22.20.5",
+    "tsup": "^8.5.1"
+  }
+}

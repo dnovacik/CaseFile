@@ -1,0 +1,30 @@
+# /etc/nginx/sites-available/casefile-api.cognision.eu (linked from sites-enabled).
+# HTTP only as committed; certbot --nginx adds the HTTPS server block and the redirect.
+server {
+    listen 80;
+    listen [::]:80;
+    server_name casefile-api.cognision.eu;
+
+    client_max_body_size 64k;
+
+    # Case pack files (scripts/publish-content.sh): https://casefile-api.cognision.eu/content/<pack>/<version>/<file>.
+    # Published versions never change, so files cache for good. The manifest is the API route
+    # /v1/content/manifest (no-store), never the raw file.
+    location /content/ {
+        alias /var/www/casefile-content/;
+        add_header Cache-Control "public, max-age=31536000, immutable";
+        location = /content/manifest.json { return 404; }
+    }
+
+    location /v1/ {
+        proxy_pass http://127.0.0.1:3001;
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_read_timeout 15s;
+    }
+
+    location / { return 404; }
+}
