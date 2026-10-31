@@ -16,6 +16,7 @@
   "exports": {
     ".": "./index.ts",
     "./art": "./art.ts",
-    "./packs": "./packs.ts"
+    "./packs": "./packs.ts",
+    "./pack-files": "./pack-files.ts"
   }
 }

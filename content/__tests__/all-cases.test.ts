@@ -11,13 +11,33 @@ import {
 import { describe, expect, it } from 'vitest';
 
 import { cases, locales } from '../index';
+import { loadPacksDir } from '../pack-files';
+import { mergeCases } from '../packs';
 
-const assetIds = readdirSync(join(__dirname, '..', 'assets', 'cases')).map((file) =>
+const bundledAssetIds = readdirSync(join(__dirname, '..', 'assets', 'cases')).map((file) =>
   basename(file, extname(file)),
 );
+const packs = loadPacksDir(join(__dirname, '..', 'packs'));
+// Bundled cases plus every pack in content/packs/, merged as a phone would show them.
+const merged = mergeCases(
+  cases,
+  packs.map((pack) => [pack]),
+  { appVersion: '999.0.0', serverNow: null, ignoreSchedule: true, bundledAssetIds },
+);
+const assetIds = [...bundledAssetIds, ...packs.flatMap((pack) => pack.mediaAssetIds)];
+
+it('merges every pack without errors', () => {
+  expect(merged.errors).toEqual([]);
+  for (const pack of packs) {
+    expect(
+      merged.cases.some((c) => c.pack?.id === pack.meta.id),
+      pack.meta.id,
+    ).toBe(true);
+  }
+});
 
 // Fair-play rules every bundled case must meet. Case-specific checks live in case-NNN.test.ts.
-describe.each(cases.map((c) => [c.definition.id, c] as const))('%s', (_, content) => {
+describe.each(merged.cases.map((c) => [c.definition.id, c] as const))('%s', (_, content) => {
   const def = content.definition;
   const answers = Object.fromEntries(def.conclusions.map((c) => [c.id, c.correctChoiceId]));
 
