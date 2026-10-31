@@ -188,7 +188,12 @@ export const sk: UiStrings = {
     title: 'Nastavenia',
     version: (v: string) => `Verzia ${v}`,
     language: 'Jazyk',
-    placeholder: 'Možnosti zvuku, animácií a prístupnosti pripravujeme.',
+    sound: 'Zvukové efekty',
+    soundOptions: { off: 'Vypnuté', on: 'Zapnuté' },
+    soundHint: 'Jemné zvuky, keď spojenie platí, stopa sa nepotvrdí alebo sa prípad uzavrie.',
+    motion: 'Pohyb',
+    motionOptions: { system: 'Podľa systému', reduced: 'Obmedzený', full: 'Plný' },
+    motionHint: 'Pri obmedzenom pohybe sa obrazovky namiesto posúvania jemne prelínajú.',
   },
   notFound: 'Tento prípad sa nepodarilo nájsť.',
 };

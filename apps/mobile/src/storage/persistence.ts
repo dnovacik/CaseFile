@@ -2,6 +2,12 @@ import { serializeProgress } from '@casefile/engine';
 
 import { cases } from '@/content/cases';
 import { isLocale, useLocaleStore } from '@/i18n';
+import {
+  isMotionPreference,
+  parseSound,
+  serializeSound,
+  usePreferencesStore,
+} from '@/state/preferences';
 import { useProgressStore } from '@/state/progress';
 
 import { createBackend } from './backend';
@@ -10,9 +16,11 @@ import { hydrate } from './hydrate';
 let started = false;
 
 const LOCALE_SETTING = 'locale';
+const SOUND_SETTING = 'sound';
+const MOTION_SETTING = 'motion';
 
 /**
- * Load saved progress and the chosen language into their stores, then autosave every change. Runs once at startup, before
+ * Load saved progress, the chosen language and preferences into their stores, then autosave every change. Runs once at startup, before
  * the splash screen hides, so the library never flashes an unsaved state.
  */
 export function startPersistence() {
@@ -26,6 +34,18 @@ export function startPersistence() {
   if (isLocale(savedLocale)) useLocaleStore.setState({ locale: savedLocale });
   useLocaleStore.subscribe((state, previous) => {
     if (state.locale !== previous.locale) backend.saveSetting(LOCALE_SETTING, state.locale);
+  });
+
+  const savedMotion = backend.loadSetting(MOTION_SETTING);
+  usePreferencesStore.setState({
+    sound: parseSound(backend.loadSetting(SOUND_SETTING)),
+    ...(isMotionPreference(savedMotion) ? { motion: savedMotion } : {}),
+  });
+  usePreferencesStore.subscribe((state, previous) => {
+    if (state.sound !== previous.sound) {
+      backend.saveSetting(SOUND_SETTING, serializeSound(state.sound));
+    }
+    if (state.motion !== previous.motion) backend.saveSetting(MOTION_SETTING, state.motion);
   });
 
   const { progress, archive } = hydrate(

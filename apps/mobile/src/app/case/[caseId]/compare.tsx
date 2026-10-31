@@ -11,6 +11,7 @@ import { useState } from 'react';
 import { AccessibilityInfo, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import { playSound } from '@/audio/sounds';
 import { Button } from '@/components/Button';
 import { FactChip } from '@/components/FactChip';
 import { getCase, useCaseText, type CaseContent } from '@/content/cases';
@@ -64,6 +65,7 @@ function Compare({ content }: { content: CaseContent }) {
     const deductionIds = result.code === 'valid' ? result.unlockedDeductionIds : [];
     if (result.code === 'valid') clearSelection(definition.id);
     setOutcome({ code: result.code, deductionIds });
+    playSound(result.code === 'valid' ? 'link' : 'miss');
     AccessibilityInfo.announceForAccessibility(ui.compare.results[result.code]);
   };
 
