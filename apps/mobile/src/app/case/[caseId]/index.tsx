@@ -9,7 +9,7 @@ import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context'
 import { Button } from '@/components/Button';
 import { Pill } from '@/components/Pill';
 import { SegmentedControl } from '@/components/SegmentedControl';
-import { artFor, cases, getCase, totalCases, useCaseText } from '@/content/cases';
+import { artFor, getCase, useCaseText, useTotalCases } from '@/content/cases';
 import { useUi } from '@/i18n';
 import { useCaseProgress } from '@/state/progress';
 import { colors, fonts, minTouch, radii, spacing, type } from '@/theme';
@@ -37,7 +37,8 @@ function BriefingView({ caseId }: { caseId: string }) {
   ] as const;
 
   const presentation = definition.presentation;
-  const number = cases.indexOf(content) + 1;
+  const number = content.number;
+  const totalCases = useTotalCases();
   const initialEvidence = definition.evidence.filter((e) => e.initial).length;
   const keyDeductions = definition.deductions.filter((d) => d.mandatory).length;
   const begin =

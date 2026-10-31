@@ -1,0 +1,24 @@
+# /etc/systemd/system/casefile-server.service — the Casefile content API on the cognision.eu VPS.
+# Listens on 127.0.0.1:3001 behind nginx. No database: it reads /var/www/casefile-content/manifest.json.
+[Unit]
+Description=Casefile content API (Fastify)
+After=network.target
+
+[Service]
+Type=simple
+User=casefile
+Group=casefile
+WorkingDirectory=/opt/casefile-server
+Environment=NODE_ENV=production
+Environment=PORT=3001
+Environment=CONTENT_DIR=/var/www/casefile-content
+ExecStart=/usr/bin/node --enable-source-maps dist/main.js
+Restart=on-failure
+RestartSec=5
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

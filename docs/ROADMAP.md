@@ -19,6 +19,8 @@ SQLite saves with version migrations, Zustand UI state, tiered hints, accessibil
 ### M4 — Build case collection (3–5 weeks)
 Expand to 5–10 fully authored, graph-validated and human-playtested cases, difficulty progression, optional recurring meta-clues and asset workflow. **Done:** no mandatory mystery relies on luck or unavailable information.
 
+Cases 001–003 ship bundled with the app. From Case 004 on, cases are **live case packs** (`content/packs/`, design in `docs/superpowers/specs/2026-10-31-live-cases-design.md`) published with `scripts/publish-content.sh`, so the collection grows without store releases. Case 004 is the first live pack.
+
 ### M5 — Monetization / release (1–2 weeks)
 2–3 free cases; one-time full collection unlock with purchase restore; internal store testing, accessibility/performance QA and store assets. **Done:** offline owned cases work, entitlement recovery and release checks verified.
 

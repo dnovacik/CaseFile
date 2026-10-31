@@ -3,3 +3,5 @@ coverage/
 *.tsbuildinfo
 .DS_Store
 .env*.local
+.superpowers/
+dist/

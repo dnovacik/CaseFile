@@ -26,3 +26,19 @@ export function hydrate(definitions: CaseDefinition[], rows: SaveRow[]): Hydrati
   }
   return result;
 }
+
+/**
+ * Cases whose in-memory progress was made against a different content version than the case
+ * now active: a pack changed the case's structure. Their progress must be archived, not reused.
+ */
+export function staleCaseIds(
+  byCase: Record<string, CaseProgress>,
+  definitions: CaseDefinition[],
+): string[] {
+  return Object.values(byCase)
+    .filter((progress) => {
+      const def = definitions.find((d) => d.id === progress.caseId);
+      return def !== undefined && def.contentVersion !== progress.contentVersion;
+    })
+    .map((progress) => progress.caseId);
+}

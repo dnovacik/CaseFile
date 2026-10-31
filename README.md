@@ -17,12 +17,16 @@ An offline-first, neo-noir mobile detective and deduction puzzle game. Players s
 - [Screen-by-screen UX and neo-noir identity](docs/UX.md)
 - [Implementation roadmap, PR sequencing and acceptance criteria](docs/ROADMAP.md)
 - [Art prompts — image generation brief](docs/ART-PROMPTS.md)
+- [Live case packs — design](docs/superpowers/specs/2026-10-31-live-cases-design.md), [pack format](content/packs/README.md) and [content server](docs/server.md)
 
 ## Repository layout
 ```text
 apps/mobile/       # Expo app (Expo Router, SDK 58)
+apps/server/       # Content API (Fastify): live case-pack manifest and server clock
 packages/engine/   # Pure TypeScript deduction engine + Vitest tests
 content/           # @casefile/content: case JSON, locales, art assets + content tests
+content/packs/     # Live case packs, published without a store release
+scripts/           # Pack build/publish and server deploy scripts
 docs/              # Product and development references
 ```
 
@@ -41,6 +45,6 @@ npm run format       # Prettier
 CI (`.github/workflows/ci.yml`) runs format check, lint, typecheck, tests and an Android/iOS bundle export.
 
 ## Status
-M0 scaffold and M1 engine: Expo app shell, CI, and a tested deduction engine with case validator and solver (`packages/engine`). Cases 001 and 002 are authored, validated (`content/`) and fully playable in the app, from the library through evidence, comparison, the deduction board, the follow-up search, the final report and the resolution. Progress autosaves (SQLite on devices) and survives restarts. Tiered hints, optional UI sounds (off by default), a reduce-motion setting that follows the device by default, and screen-reader and large-text support are in place. An earlier exploratory engine ZIP has **not** been imported or independently verified.
+M0 scaffold and M1 engine: Expo app shell, CI, and a tested deduction engine with case validator and solver (`packages/engine`). Cases 001 and 002 are authored, validated (`content/`) and fully playable in the app, from the library through evidence, comparison, the deduction board, the follow-up search, the final report and the resolution. Progress autosaves (SQLite on devices) and survives restarts. Tiered hints, optional UI sounds (off by default), a reduce-motion setting that follows the device by default, and screen-reader and large-text support are in place. Live case packs: new cases can ship from `content/packs/` through the content API (`apps/server`) without a store release; phones download and verify them in the background and switch them on only while no case is open. The content API is live at `https://casefile-api.cognision.eu` (no packs published yet). An earlier exploratory engine ZIP has **not** been imported or independently verified.
 
 **Next:** blind playtests of Cases 001–002, then `content: complete initial case collection` (Case 003 onward).
