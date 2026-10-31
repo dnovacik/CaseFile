@@ -18,7 +18,8 @@
         "c003.briefing.objective1",
         "c003.briefing.objective2",
         "c003.briefing.objective3"
-      ]
+      ],
+      "assetId": "case-03-briefing"
     },
     "resolutionKey": "c003.resolution"
   },
@@ -26,22 +27,26 @@
     {
       "id": "P_JULIAN",
       "nameKey": "c003.person.julian.name",
-      "roleKey": "c003.person.julian.role"
+      "roleKey": "c003.person.julian.role",
+      "assetId": "case-03-cast-julian"
     },
     {
       "id": "P_PRIYA",
       "nameKey": "c003.person.priya.name",
-      "roleKey": "c003.person.priya.role"
+      "roleKey": "c003.person.priya.role",
+      "assetId": "case-03-cast-priya"
     },
     {
       "id": "P_GRACE",
       "nameKey": "c003.person.grace.name",
-      "roleKey": "c003.person.grace.role"
+      "roleKey": "c003.person.grace.role",
+      "assetId": "case-03-cast-grace"
     },
     {
       "id": "P_THEO",
       "nameKey": "c003.person.theo.name",
-      "roleKey": "c003.person.theo.role"
+      "roleKey": "c003.person.theo.role",
+      "assetId": "case-03-cast-theo"
     }
   ],
   "evidence": [
@@ -51,7 +56,8 @@
       "titleKey": "c003.e01.title",
       "bodyKey": "c003.e01.body",
       "initial": true,
-      "factIds": ["F01A", "F01B"]
+      "factIds": ["F01A", "F01B"],
+      "assetIds": ["case-03-cast-priya"]
     },
     {
       "id": "E02",
@@ -59,7 +65,8 @@
       "titleKey": "c003.e02.title",
       "bodyKey": "c003.e02.body",
       "initial": true,
-      "factIds": ["F02A", "F02B"]
+      "factIds": ["F02A", "F02B"],
+      "assetIds": ["case-03-cast-grace"]
     },
     {
       "id": "E03",
@@ -67,7 +74,8 @@
       "titleKey": "c003.e03.title",
       "bodyKey": "c003.e03.body",
       "initial": true,
-      "factIds": ["F03A", "F03B"]
+      "factIds": ["F03A", "F03B"],
+      "assetIds": ["case-03-cast-theo"]
     },
     {
       "id": "E04",
@@ -91,7 +99,8 @@
       "titleKey": "c003.e06.title",
       "bodyKey": "c003.e06.body",
       "initial": true,
-      "factIds": ["F06A", "F06B", "F06C"]
+      "factIds": ["F06A", "F06B", "F06C"],
+      "assetIds": ["case-03-e06"]
     },
     {
       "id": "E07",
@@ -99,7 +108,8 @@
       "titleKey": "c003.e07.title",
       "bodyKey": "c003.e07.body",
       "initial": true,
-      "factIds": ["F07A", "F07B", "F07C"]
+      "factIds": ["F07A", "F07B", "F07C"],
+      "assetIds": ["case-03-e07"]
     },
     {
       "id": "E08",
@@ -107,7 +117,8 @@
       "titleKey": "c003.e08.title",
       "bodyKey": "c003.e08.body",
       "initial": true,
-      "factIds": ["F08A", "F08B", "F08C", "F08D", "F08E"]
+      "factIds": ["F08A", "F08B", "F08C", "F08D", "F08E"],
+      "assetIds": ["case-03-e08"]
     },
     {
       "id": "E09",
@@ -123,7 +134,8 @@
       "titleKey": "c003.e10.title",
       "bodyKey": "c003.e10.body",
       "initial": true,
-      "factIds": ["F10A", "F10B", "F10C"]
+      "factIds": ["F10A", "F10B", "F10C"],
+      "assetIds": ["case-03-e10"]
     },
     {
       "id": "E11",
@@ -131,7 +143,8 @@
       "titleKey": "c003.e11.title",
       "bodyKey": "c003.e11.body",
       "initial": true,
-      "factIds": ["F11A"]
+      "factIds": ["F11A"],
+      "assetIds": ["case-03-e11"]
     },
     {
       "id": "E12",
@@ -147,7 +160,8 @@
       "titleKey": "c003.e13.title",
       "bodyKey": "c003.e13.body",
       "initial": false,
-      "factIds": ["F13A", "F13B", "F13C"]
+      "factIds": ["F13A", "F13B", "F13C"],
+      "assetIds": ["case-03-e13"]
     }
   ],
   "facts": [
