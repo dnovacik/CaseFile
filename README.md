@@ -14,6 +14,8 @@ An offline-first, neo-noir mobile detective and deduction puzzle game. Players s
 - [Full Game Design Document](docs/GDD.md)
 - [Deduction engine & JSON authoring design](docs/ENGINE.md)
 - [Case 001 — The Missing Watch](docs/CASE-001.md)
+- [Case 002 — Last Delivery](docs/CASE-002.md)
+- [Case 003 — The Empty Room](docs/CASE-003.md) (design; art pending)
 - [Screen-by-screen UX and neo-noir identity](docs/UX.md)
 - [Implementation roadmap, PR sequencing and acceptance criteria](docs/ROADMAP.md)
 - [Art prompts — image generation brief](docs/ART-PROMPTS.md)

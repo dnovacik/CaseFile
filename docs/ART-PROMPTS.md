@@ -69,6 +69,11 @@ Deliver PNG. The user will save each image under the given filename.
 | C01-E07 | `case-01-e07.png` | P | DONE |
 | C01-E08 | `case-01-e08.png` | L | DONE |
 | C01-E09 | `case-01-e09.png` | L | DONE |
+| C02-* | see [CASE-002.md](CASE-002.md) | — | DONE |
+| C03-BRIEFING | `case-03-briefing.png` | L | TODO |
+| C03-CAST-JULIAN / PRIYA / GRACE / THEO | `case-03-cast-<name>.png` | S | TODO |
+| C03-E06, E07, E08, E10, E11 | `case-03-e<NN>.png` | L | TODO |
+| C03-E13 | `case-03-e13.png` | L | TODO (spoiler) |
 | UI-EVIDENCE … UI-REPORT | `ui-<screen>.png` | P | TODO |
 
 ---
@@ -174,6 +179,49 @@ Forensic documentation photo of **the key cabinet** (see recurring objects) moun
 ### C01-E09 — Watch recovery · L · DONE
 Forensic evidence photo: **the watch** (see recurring objects) partly visible inside the opened zipped inner pocket of **Marcus's navy jacket**, laid flat on a steel table. A blue-gloved hand holds the zip open; a black-and-white forensic scale ruler lies beside it. Even, clinical lighting with a slight warm cast.
 - **Must:** watch matches CARD-01; jacket matches Marcus's portrait.
+
+---
+
+## Case 003 — The Empty Room
+
+To request only this case, the user writes: `Generate the Case 003 assets (C03-*) in order.` Design and spoilers: [CASE-003.md](CASE-003.md).
+
+**Case facts the art must respect** (designer spoilers): the Halden Hotel is an upscale contemporary city-centre hotel; the night is 26–27 October 2026. Guest Julian Ashby goes up to room 614 on the sixth floor at 21:09 and leaves before midnight, unseen. The hotel's cameras cover **only** the lobby, front desk, main entrance and guest lifts. There are **no cameras on guest floors, stairs or staff areas**. Guest-room windows are sealed. The fire stair's only exit is one alarmed street door, and it has no door into the lobby. A staff-only service lift runs from every floor to a basement loading dock, which opens onto a rear lane. That loading dock has its own camera, belonging to a delivery contractor. Before the follow-up action, **no image may show the service lift in use, the loading dock or the rear lane**. Julian is never shown leaving through the lobby.
+
+**House style, matching CARD-03 (already done):** dark walnut-stained doors, brass wall sconces, patterned charcoal carpet, brass electronic card locks with lever handles, crisp white bed linen, framed muted landscape prints.
+
+**Recurring objects and clothing — keep identical everywhere:**
+- **Julian's coat and bag:** knee-length charcoal-grey wool overcoat; black leather laptop bag with a single brass buckle and a shoulder strap.
+- **Porter's uniform:** dark navy waistcoat with brass buttons over a white shirt, dark trousers. **No name badge** is visible anywhere.
+- **Room 614's door:** as on CARD-03, with a brass **swing-bar latch** on the inside.
+- **The Meridian Trust emblem:** a thin brass circle crossed by one horizontal line, above the words `THE MERIDIAN TRUST` in small spaced serif capitals. It must look the same in every future case.
+
+### C03-BRIEFING — Briefing header · L · TODO
+File: `case-03-briefing.png`. The Halden's lobby late at night, seen from just inside the main entrance: a polished stone floor, a long walnut front desk lit by a brass lamp, two guest-lift doors with brass surrounds, and one small ceiling camera dome visible above the lifts.
+- **Must:** lower third dark and quiet for the title overlay; contemporary hotel; matches the house style.
+- **Must not:** people, a service lift, staff doors, readable text or logos, anything suggesting the loading dock.
+
+### Cast portraits — S · TODO
+Template (the same as Case 002's portraits):
+> Character portrait, head-and-shoulders, neutral expression, looking slightly off-camera to the right, dark background, identical low-key tungsten and blue-black lighting for every portrait in this set: `<DESCRIPTION>`
+
+- **Must:** the same lighting, background and framing for all four; nobody coded as a villain.
+- **Must not:** name badges, readable text, logos.
+
+| ID | File | Description |
+|---|---|---|
+| C03-CAST-JULIAN | `case-03-cast-julian.png` | auditor, early 40s, short dark-blond hair, clean-shaven, thin rectangular glasses, wearing **Julian's charcoal-grey overcoat** (see recurring objects) over a white shirt with an open collar, reserved and thoughtful |
+| C03-CAST-PRIYA | `case-03-cast-priya.png` | colleague, mid 30s, black hair in a low bun, small gold stud earrings, camel wool coat over a navy roll-neck, worried but composed |
+| C03-CAST-GRACE | `case-03-cast-grace.png` | night manager, early 50s, short natural hair with grey streaks, black tailored suit with a plain brass lapel pin (no text), white blouse, poised and professional |
+| C03-CAST-THEO | `case-03-cast-theo.png` | night porter, mid 20s, light-brown hair pushed back, wearing the **porter's uniform** (see recurring objects), polite, slightly guarded — **not** shifty |
+
+### Evidence photos — L · TODO
+- **C03-E06** → `case-03-e06.png`: housekeeping documentation photo of room 614 at 08:35, taken from just inside the door. The bed is made and unslept-in, with a wrapped turndown chocolate on the pillow; a closed dark suitcase sits on a luggage rack; a phone lies face-down on the desk; the wardrobe stands open with empty hangers and **no coat**. In the foreground edge, the door is held ajar by its brass swing bar. Flat, slightly warm documentary lighting. **Must:** every listed detail visible; room style matches CARD-03. **Must not:** overcoat, laptop bag, people, readable text, open windows.
+- **C03-E07** → `case-03-e07.png`: a framed hotel fire-and-exit plan photographed on a corridor wall. The plan shows the sixth floor with room 614, the guest lifts, one fire stair, and a separate service lift marked staff-only, plus a small inset showing the service lift reaching the loading dock. Simple line drawing, not a busy architectural plan. **Allowed text only:** `614`, `GUEST LIFTS`, `FIRE STAIR`, `SERVICE LIFT`, `STAFF ONLY`, `LOADING DOCK`, `YOU ARE HERE`. **Must:** one fire stair, one service lift, spelling exact. **Must not:** extra exits, a fire-stair door into the lobby, room numbers other than 614.
+- **C03-E08** → `case-03-e08.png`: a high-angle **CCTV frame** of the lobby guest lifts: a man in **Julian's overcoat** carrying **Julian's laptop bag** steps into an open lift. Slightly grainy, cool security-camera grade with a timestamp burned in at the top. **Allowed text only:** `CAM 02`, `26-10-2026`, `21:09` (the evening is the 26th, not the 27th). **Must:** coat and bag clearly match the recurring objects; the face is small and partly turned away. **Must not:** other people, staff doors, the service lift.
+- **C03-E10** → `case-03-e10.png`: a handwritten master-key sign-out sheet on a clipboard on a dark desk, under brass lamplight. Two rows are filled in. **Allowed text only:** `MASTER KEYS`, `MK-1`, `G. OKAFOR`, `22:00`, `06:00`, `MK-2`, `T. LINDQVIST`, `06:05`. Row one: MK-1, G. OKAFOR, 22:00, 06:00. Row two: MK-2, T. LINDQVIST, 22:00, 06:05. **Must:** each time stays on its own row, as given. **Must not:** a third key row, signatures that look like a confession.
+- **C03-E11** → `case-03-e11.png`: an open hotel desk drawer with a cream compliments slip lying on top of a hotel notepad and pen. The slip shows **only** the Meridian Trust emblem (see recurring objects); otherwise it is blank. **Allowed text only:** `THE MERIDIAN TRUST`. **Must:** clearly blank apart from the emblem; mundane, not sinister. **Must not:** handwriting, dates, names, a phone number.
+- **C03-E13** → `case-03-e13.png` · **spoiler, post-A01 only**: a high-angle security-camera still of a basement loading dock under sodium-orange and tungsten light. The brushed-steel service-lift doors stand open, and two people walk out of them **seen from behind**: one in the **porter's uniform**, one in **Julian's overcoat** with **Julian's laptop bag**. Grainy, with a timestamp burned in. **Allowed text only:** `DOCK CAM`, `26-10-2026`, `23:51`. **Must:** **no faces visible**; clothing exactly matches the recurring objects. **Must not:** a taxi (the app's text describes the 23:58 frame), any third person, signs of force.
 
 ---
 
