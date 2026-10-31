@@ -10,10 +10,12 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@casefile/engine": "*"
+    "@casefile/engine": "*",
+    "zod": "^4.6.7"
   },
   "exports": {
     ".": "./index.ts",
-    "./art": "./art.ts"
+    "./art": "./art.ts",
+    "./packs": "./packs.ts"
   }
 }
